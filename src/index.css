@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #16A34A;
+  --color-primary-dark: #15803D;
+  --color-primary-light: #DCFCE7;
+  --color-primary-50: #F0FDF4;
+  --color-dark: #0F172A;
+  --color-dark-lighter: #1E293B;
+  --color-off-white: #F8FAFC;
+  --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-dark);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
