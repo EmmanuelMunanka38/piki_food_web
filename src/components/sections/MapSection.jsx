@@ -13,9 +13,8 @@ export default function MapSection() {
     <section className="py-16 md:py-24 bg-off-white">
       <div className="mx-auto max-w-[1440px] px-5 md:px-8 lg:px-12">
         <SectionTitle
-          subtitle="Our Coverage"
-          title="We're Where You Are"
-          description="Currently serving food delivery in these cities across Tanzania and Kenya"
+          title="Live in 6 Cities Across East Africa"
+          description="Piki Food currently operates in major urban centers across Tanzania and Kenya, with new cities launching every quarter. Tap any city on the map to explore restaurant availability, estimated delivery times, and local menu offerings in that area."
         />
 
         <motion.div
@@ -76,7 +75,7 @@ export default function MapSection() {
                   </p>
                   <p className="text-xs text-gray-500">{selectedCity.country}</p>
                   <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold bg-primary-light text-primary">
-                    Active
+                    Accepting Orders
                   </span>
                 </div>
               </Popup>

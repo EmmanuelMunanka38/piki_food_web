@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, ChevronDown, Search, Loader2, CheckCircle2, XCircle, Star, TrendingUp, Users } from "lucide-react";
+import { MapPin, Clock, ChevronDown, Search, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import { MAPBOX_TOKEN, SERVICE_CITIES, isCitySupported } from "../../data/mapConfig";
 import { Link } from "react-router-dom";
 
@@ -21,12 +21,6 @@ const itemVariants = {
     transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
-
-const popularDishes = [
-  { name: "Chips Mayai", restaurant: "Mama Ntilie", price: "6,000",  },
-  { name: "Mishkaki", restaurant: "Kivukoni Market", price: "15,000", },
-  { name: "Pilau", restaurant: "Arusha Lodge", price: "12,000",  },
-];
 
 export default function Hero() {
   const [address, setAddress] = useState("");
@@ -112,12 +106,10 @@ export default function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1495195134817-aeb325a55b65?w=1920&h=1080&fit=crop"
+          src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop"
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-white/20 md:bg-gradient-to-r md:from-white/90 md:via-white/60 md:to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent md:from-transparent md:via-transparent md:to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12 pt-24 md:pt-0">
@@ -268,68 +260,11 @@ export default function Hero() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
-            <div className="w-full max-w-[440px]">
-              <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl shadow-black/5 p-6">
-                <div className="flex items-center gap-6 mb-6 pb-5 border-b border-gray-100">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                      <TrendingUp className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-dark">500+</div>
-                      <div className="text-[11px] text-gray-400 uppercase tracking-wider">Restaurants</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-dark flex items-center justify-center">
-                      <Users className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-dark">10K+</div>
-                      <div className="text-[11px] text-gray-400 uppercase tracking-wider">Happy Users</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                      <Star className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-dark">4.8</div>
-                      <div className="text-[11px] text-gray-400 uppercase tracking-wider">Rating</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Popular right now</p>
-                  {popularDishes.map((dish) => (
-                    <Link
-                      key={dish.name}
-                      to="/menu"
-                      className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors duration-200 group"
-                    >
-                      <span className="text-2xl">{dish.emoji}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-semibold text-dark group-hover:text-primary transition-colors">
-                          {dish.name}
-                        </div>
-                        <div className="text-[11px] text-gray-400">{dish.restaurant}</div>
-                      </div>
-                      <div className="text-sm font-bold text-primary whitespace-nowrap">
-                        {dish.price} <span className="text-[10px] font-normal text-gray-400">TZS</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                <Link
-                  to="/menu"
-                  className="mt-5 block text-center py-2.5 text-sm font-semibold text-dark bg-gray-50 hover:bg-dark hover:text-white transition-colors duration-300"
-                >
-                  View Full Menu
-                </Link>
-              </div>
-            </div>
+            <img
+              src="/app-screenshot.png"
+              alt="Piki Food App"
+              className="w-full max-w-[400px] h-auto drop-shadow-2xl"
+            />
           </motion.div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Smartphone, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -46,18 +46,6 @@ export default function DownloadApp() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex lg:flex-row flex-col items-center gap-12">
         <div className="flex-1 text-center lg:text-left">
-          <motion.div
-            className="inline-flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-1.5 mb-6"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-          >
-            <Smartphone className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-white/80">Download Now</span>
-          </motion.div>
-
           <motion.h2
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5"
             variants={fadeUp}

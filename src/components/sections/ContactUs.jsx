@@ -142,8 +142,7 @@ export default function ContactUs() {
 
               <motion.div variants={itemVariants} className="mb-8">
                 <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
-                  Message 
-                </label>
+                  Message </label>
                 <textarea
                   id="message"
                   name="message"

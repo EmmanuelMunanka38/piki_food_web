@@ -11,22 +11,25 @@ import { Link } from "react-router-dom";
 const features = [
   {
     icon: Utensils,
-    title: "Browse Local Restaurants",
-    description: "Discover hundreds of restaurants near you with authentic Tanzanian and international cuisines.",
+    title: "Browse 500+ Restaurants Near You",
+    description:
+      "Access an extensive network of verified restaurants across Dar es Salaam, Nairobi, Mwanza, and beyond. Filter by cuisine type, price range, delivery time, or customer rating to find exactly what you're craving — from local street food favorites like Chips Mayai and Mishkaki to international chains.",
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
     link: "/menu",
   },
   {
     icon: Bike,
-    title: "Fast Delivery to You",
-    description: "Our riders deliver your order hot and fresh to your doorstep in minutes, not hours.",
+    title: "Real-Time Tracking, Delivered in 30 Minutes",
+    description:
+      "Every order is assigned to a GPS-tracked rider within minutes. Watch your food travel from the restaurant kitchen to your doorstep in real time through our live map. Our average delivery time across all active cities is under 30 minutes, with temperature-controlled packaging to ensure your meal arrives hot.",
     image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=400&fit=crop",
     link: "/how-it-works",
   },
   {
     icon: ChefHat,
-    title: "Quality You Can Trust",
-    description: "Every dish is prepared by expert chefs using the freshest ingredients from local markets.",
+    title: "Secure M-Pesa Checkout, Zero Hassle",
+    description:
+      "Pay effortlessly with M-Pesa — no credit cards or bank accounts required. Our direct integration with Safaricom and Vodacom APIs processes STK Push payments in under 3 seconds with bank-level encryption. Every transaction is verified in real time, and your financial data is never stored on our servers.",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
     link: "/how-it-works",
   },
@@ -56,8 +59,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1440px] px-5 md:px-8 lg:px-12">
           <SectionTitle
             subtitle="How it works"
-            title="From Craving to Delivery"
-            description="Three simple steps to get your favorite food delivered"
+            title="From Craving to Delivery in Three Steps"
+            description="We've streamlined the entire food ordering process so you can go from browsing to eating in under 30 minutes. Here's how Piki Food works."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
