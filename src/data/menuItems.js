@@ -95,7 +95,7 @@ export const testimonials = [
   {
     id: 1,
     name: "Amina Hassan",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "https://images.unsplash.com/photo-1765607476283-ca2d8201ddd4?w=150&h=150&fit=crop&crop=face",
     location: "Dar es Salaam",
     rating: 5,
     review: "I order lunch through Piki Food almost every weekday. The M-Pesa checkout takes less than 3 seconds, and my food consistently arrives within 25 minutes. The real-time tracking gives me full visibility from restaurant to doorstep — something no other local app has delivered this reliably.",
@@ -103,7 +103,7 @@ export const testimonials = [
   {
     id: 2,
     name: "John Mwangi",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "https://images.unsplash.com/photo-1745690720220-24e337e571c7?w=150&h=150&fit=crop&crop=face",
     location: "Nairobi",
     rating: 5,
     review: "As someone who manages a busy schedule, Piki Food has become essential. I can schedule orders in advance, save my favorite restaurants, and reorder with a single tap. The restaurant selection in Nairobi is outstanding — from local nyama choma spots to international chains. The app is fast and the interface is clean.",
@@ -111,7 +111,7 @@ export const testimonials = [
   {
     id: 3,
     name: "Fatima Omar",
-    avatar: "https://i.pravatar.cc/150?img=25",
+    avatar: "https://images.unsplash.com/photo-1754843780819-9266a192ca7a?w=150&h=150&fit=crop&crop=face",
     location: "Mwanza",
     rating: 5,
     review: "What sets Piki Food apart is the consistency. Whether I'm ordering ugali na nyama or a pizza, the quality matches what I'd get dining in. Customer support resolved my one issue within minutes through WhatsApp. Having a reliable delivery option in Mwanza has genuinely improved how my family eats during busy weeks.",
@@ -119,53 +119,13 @@ export const testimonials = [
   {
     id: 4,
     name: "David Kimaro",
-    avatar: "https://i.pravatar.cc/150?img=53",
+    avatar: "https://images.unsplash.com/photo-1745859426100-544678ee3cdb?w=150&h=150&fit=crop&crop=face",
     location: "Arusha",
     rating: 5,
     review: "I switched from international delivery apps to Piki Food six months ago and haven't looked back. The pricing is transparent with no hidden fees, the riders are professional, and the M-Pesa integration means I never have to worry about card issues. It's built specifically for how we actually pay and order in East Africa.",
   },
-  {
-    id: 5,
-    name: "Ruth Changa",
-    avatar: "https://i.pravatar.cc/150?img=20",
-    location: "Dar es Salaam",
-    rating: 5,
-    review: "The speed of delivery genuinely surprised me. My first order arrived in 18 minutes — hot and perfectly packaged. I've now placed over 50 orders and the average has stayed under 30 minutes. The app remembers my addresses, dietary preferences, and payment method, which makes reordering completely seamless.",
-  },
-  {
-    id: 6,
-    name: "Rukia Peter",
-    avatar: "https://i.pravatar.cc/150?img=26",
-    location: "Mombasa",
-    rating: 5,
-    review: "I run a restaurant in Mombasa and listing on Piki Food increased my delivery orders by 40% within the first month. The merchant dashboard is straightforward, payout cycles are reliable, and the rider network handles volume spikes during weekends without delays. It's a platform I'd recommend to any restaurant owner.",
-  },
-  {
-    id: 7,
-    name: "Caloline Mosha",
-    avatar: "https://i.pravatar.cc/150?img=23",
-    location: "Mbeya",
-    rating: 5,
-    review: "Before Piki Food, delivery options in Mbeya were extremely limited. Now I can order from over 30 restaurants in my area. The food arrives at the right temperature every time, and the app notifications keep me informed at every step. It's the most polished delivery app I've used in Tanzania — and I've tried all of them.",
-  },
-  {
-    id: 8,
-    name: "Rukia Yahya",
-    avatar: "https://i.pravatar.cc/150?img=27",
-    location: "Kisumu",
-    rating: 5,
-    review: "The M-Pesa STK Push integration is flawless. I tap pay, approve on my phone, and the order is confirmed instantly — no redirects, no codes to enter. I've referred four friends and we all order regularly. Piki Food has become the default way my household handles weeknight dinners when nobody has time to cook.",
-  },
 ];
 
-export const sponsors = [
-  { id: 1, name: "Vodacom", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Vodacom_Logo.svg/200px-Vodacom_Logo.svg.png" },
-  { id: 2, name: "M-Pesa", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/M-Pesa_LOGO-01.svg/200px-M-Pesa_LOGO-01.svg.png" },
-  { id: 3, name: "Airtel", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Airtel_logo_%282024%29.svg/200px-Airtel_logo_%282024%29.svg.png" },
-  { id: 4, name: "Tigo", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Tigo_logo.svg/200px-Tigo_logo.svg.png" },
-  { id: 5, name: "Halotel", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Halotel_logo.svg/200px-Halotel_logo.svg.png" },
-  { id: 6, name: "Zantel", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Zantel_logo.svg/200px-Zantel_logo.svg.png" },
-];
 
 const LOGO_DEV_TOKEN = import.meta.env.VITE_LOGO_DEV_TOKEN;
 
