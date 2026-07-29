@@ -102,7 +102,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-end pb-16 md:items-center md:pb-0 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pb-0 md:items-center md:pb-0 overflow-hidden"
     >
       <div className="absolute inset-0">
         <img
@@ -123,7 +123,7 @@ export default function Hero() {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-[40px] leading-[1.1] font-extrabold text-dark sm:text-5xl lg:text-[64px] mb-6"
+              className="text-[40px] leading-[1.1] font-extrabold text-dark sm:text-5xl lg:text-[64px] mb-6 text-center md:text-left"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Food delivery
@@ -214,7 +214,7 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium mb-4 ${
+                  className={`flex items-center justify-center md:justify-start gap-2 px-4 py-2.5 text-sm font-medium mb-4 ${
                     searchResult.supported
                       ? "bg-primary-light text-primary"
                       : "bg-amber-50 text-amber-700"
@@ -241,7 +241,7 @@ export default function Hero() {
 
             <motion.p
               variants={itemVariants}
-              className="text-sm text-dark/60"
+              className="text-sm text-dark/60 text-center md:text-left"
             >
               Or{" "}
               <Link
