@@ -9,6 +9,8 @@ import DownloadPage from "./pages/DownloadPage";
 import MsosiApiPage from "./pages/MsosiApiPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import CookiePolicyPage from "./pages/CookiePolicyPage";
 
 function App() {
   const location = useLocation();
@@ -28,6 +30,8 @@ function App() {
           <Route path="/api" element={<MsosiApiPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/cookies" element={<CookiePolicyPage />} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}
