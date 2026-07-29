@@ -11,9 +11,9 @@ const quickLinks = [
 ];
 
 const legalLinks = [
-  { label: "Privacy Policy", href: "#" },
+  { label: "Privacy Policy", path: "/privacy" },
   { label: "Terms of Service", href: "#" },
-  { label: "Cookie Policy", href: "#" },
+  { label: "Cookie Policy", path: "/cookies" },
 ];
 
 export default function Footer() {
@@ -83,7 +83,7 @@ export default function Footer() {
             </h3>
             <div className="flex items-center gap-3 text-white/60 text-sm mb-3">
               <Phone className="w-5 h-5 flex-shrink-0" />
-              <span>+255 123 456 789</span>
+              <span>+255 740 336 972 </span>
             </div>
             <div className="flex items-center gap-3 text-white/60 text-sm mb-3">
               <Mail className="w-5 h-5 flex-shrink-0" />
@@ -106,9 +106,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
-                className="bg-white/10 border border-white/20 rounded-l-xl px-4 py-2.5 text-white placeholder-white/40 text-sm flex-1 outline-none focus:border-primary transition-colors duration-200"
+                className="bg-white/10 border border-white/20  px-4 py-2.5 text-white placeholder-white/40 text-sm flex-1 outline-none focus:border-primary transition-colors duration-200"
               />
-              <button className="bg-primary text-white px-5 py-2.5 rounded-r-xl font-semibold text-sm hover:bg-primary-dark transition-colors duration-200">
+              <button className="bg-primary text-white px-5 py-2.5  font-semibold text-sm hover:bg-primary-dark transition-colors duration-200">
                 Subscribe
               </button>
             </div>
@@ -123,15 +123,25 @@ export default function Footer() {
               © 2026 Piki Food. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              {legalLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-white/40 hover:text-white text-sm transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {legalLinks.map((link) =>
+                link.path ? (
+                  <Link
+                    key={link.label}
+                    to={link.path}
+                    className="text-white/40 hover:text-white text-sm transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-white/40 hover:text-white text-sm transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
           </div>
         </div>
