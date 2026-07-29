@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import Hero from "../components/sections/Hero";
 import FoodCompanies from "../components/sections/FoodCompanies";
-import SectionTitle from "../components/ui/SectionTitle";
-import Button from "../components/ui/Button";
+import PlatformShowcase from "../components/sections/PlatformShowcase";
 import MapSection from "../components/sections/MapSection";
 import Testimonials from "../components/sections/Testimonials";
 import { Utensils, Bike, ChefHat, ArrowRight } from "lucide-react";
@@ -22,7 +21,7 @@ const features = [
     title: "Real-Time Tracking, Delivered in 30 Minutes",
     description:
       "Every order is assigned to a GPS-tracked rider within minutes. Watch your food travel from the restaurant kitchen to your doorstep in real time through our live map. Our average delivery time across all active cities is under 30 minutes, with temperature-controlled packaging to ensure your meal arrives hot.",
-    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1760888549280-4aef010720bd?w=600&h=400&fit=crop",
     link: "/how-it-works",
   },
   {
@@ -30,7 +29,7 @@ const features = [
     title: "Secure M-Pesa Checkout, Zero Hassle",
     description:
       "Pay effortlessly with M-Pesa — no credit cards or bank accounts required. Our direct integration with Safaricom and Vodacom APIs processes STK Push payments in under 3 seconds with bank-level encryption. Every transaction is verified in real time, and your financial data is never stored on our servers.",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1728044849256-ad00ec91e794?w=600&h=400&fit=crop",
     link: "/how-it-works",
   },
 ];
@@ -57,12 +56,6 @@ export default function HomePage() {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <SectionTitle
-            subtitle="How it works"
-            title="From Craving to Delivery in Three Steps"
-            description="We've streamlined the entire food ordering process so you can go from browsing to eating in under 30 minutes. Here's how Piki Food works."
-          />
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {features.map((feature, i) => (
               <motion.div
@@ -103,27 +96,14 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12 text-center"
-          >
-            <Link to="/how-it-works">
-              <Button variant="secondary" size="lg">
-                See How It Works
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
-      <MapSection />
+      <PlatformShowcase />
 
       <Testimonials />
+
+      <MapSection />
     </>
   );
 }
