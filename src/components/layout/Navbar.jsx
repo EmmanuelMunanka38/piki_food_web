@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, UtensilsCrossed, Home, MapPin, Phone, Download, ArrowRight, Code2 } from "lucide-react";
+import { Menu, X, UtensilsCrossed, Home, MapPin, Phone, Download, ArrowRight, Code2, ShoppingBag } from "lucide-react";
+import { getAccessToken } from "../../lib/tokens";
 
 const navLinks = [
   { label: "Home", path: "/", icon: Home }, 
@@ -14,6 +15,7 @@ export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const isLoggedIn = Boolean(getAccessToken());
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -83,27 +85,39 @@ export default function Navbar() {
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                to="/login"
-                className="px-5 py-2.5 text-sm font-semibold text-dark bg-white border border-dark/15 hover:bg-gray-50 transition-colors duration-200"
-              >
-                Log in
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  to="/app"
+                  className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  Order Now
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="px-5 py-2.5 text-sm font-semibold text-dark bg-white border border-dark/15 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Log in
+                  </Link>
 
-              <Link
-                to="/signup"
-                className="px-5 py-2.5 text-sm font-semibold text-white bg-dark hover:bg-dark/90 transition-colors duration-200"
-              >
-                Sign up
-              </Link>
+                  <Link
+                    to="/signup"
+                    className="px-5 py-2.5 text-sm font-semibold text-white bg-dark hover:bg-dark/90 transition-colors duration-200"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
             </div>
 
             <div className="lg:hidden">
               <Link
-                to="/signup"
-                className="px-4 py-2 text-sm font-semibold text-white bg-dark"
+                to={isLoggedIn ? "/app" : "/signup"}
+                className={`px-4 py-2 text-sm font-semibold text-white ${isLoggedIn ? "bg-primary" : "bg-dark"}`}
               >
-                Sign up
+                {isLoggedIn ? "Order Now" : "Sign up"}
               </Link>
             </div>
           </div>
@@ -202,20 +216,33 @@ export default function Navbar() {
               </nav>
 
               <div className="px-6 pb-6 space-y-3 border-t border-gray-100 pt-6">
-                <Link
-                  to="/login"
-                  onClick={() => setSidebarOpen(false)}
-                  className="block text-center px-5 py-3 text-sm font-semibold text-dark bg-white border border-dark/15 hover:bg-gray-50 transition-colors duration-200"
-                >
-                  Log in
-                </Link>
-                <Link
-                  to="/signup"
-                  onClick={() => setSidebarOpen(false)}
-                  className="block text-center px-5 py-3 text-sm font-semibold text-white bg-dark hover:bg-dark/90 transition-colors duration-200"
-                >
-                  Sign up
-                </Link>
+                {isLoggedIn ? (
+                  <Link
+                    to="/app"
+                    onClick={() => setSidebarOpen(false)}
+                    className="flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    Order Now
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      onClick={() => setSidebarOpen(false)}
+                      className="block text-center px-5 py-3 text-sm font-semibold text-dark bg-white border border-dark/15 hover:bg-gray-50 transition-colors duration-200"
+                    >
+                      Log in
+                    </Link>
+                    <Link
+                      to="/signup"
+                      onClick={() => setSidebarOpen(false)}
+                      className="block text-center px-5 py-3 text-sm font-semibold text-white bg-dark hover:bg-dark/90 transition-colors duration-200"
+                    >
+                      Sign up
+                    </Link>
+                  </>
+                )}
               </div>
             </motion.div>
           </>
