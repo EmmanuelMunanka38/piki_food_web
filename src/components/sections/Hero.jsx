@@ -106,10 +106,11 @@ export default function Hero() {
     >
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop"
+          src="https://i.pinimg.com/originals/5f/6d/49/5f6d494467f583c43109c6b046fd4467.jpg"
           alt=""
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-black/45" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12 pt-24 md:pt-0">
@@ -123,7 +124,7 @@ export default function Hero() {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-[40px] leading-[1.1] font-extrabold text-dark sm:text-5xl lg:text-[64px] mb-6 text-center md:text-left"
+              className="text-[40px] leading-[1.1] font-extrabold text-white sm:text-5xl lg:text-[64px] mb-6 text-center md:text-left"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Food delivery
@@ -133,9 +134,9 @@ export default function Hero() {
 
             <motion.div
               variants={itemVariants}
-              className="relative flex flex-col sm:flex-row items-stretch gap-0 bg-white shadow-lg shadow-black/8 p-1.5 mb-4"
+              className="relative flex flex-col sm:flex-row items-stretch gap-2 sm:gap-2.5 bg-white shadow-lg shadow-black/8 p-2 mb-4"
             >
-              <div className="flex items-center gap-3 flex-1 px-4 py-3 border-b sm:border-b-0 sm:border-r border-gray-200 relative">
+              <div className="flex items-center gap-3 flex-[1.35] px-4 py-3 relative">
                 <MapPin className="w-5 h-5 text-dark shrink-0" />
                 <input
                   type="text"
@@ -178,7 +179,7 @@ export default function Hero() {
                 </AnimatePresence>
               </div>
 
-              <div className="flex items-center gap-2 px-4 py-3 border-b sm:border-b-0 sm:border-r border-gray-200 sm:max-w-[180px]">
+              <div className="flex items-center gap-2 px-4 py-3 sm:max-w-[145px]">
                 <Clock className="w-5 h-5 text-dark shrink-0" />
                 <select
                   value={deliveryTime}
@@ -196,7 +197,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSearch}
                 disabled={searching}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-dark text-white text-sm font-semibold hover:bg-dark/90 transition-colors duration-200 cursor-pointer mt-1 sm:mt-0 disabled:opacity-60"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-dark text-white text-sm font-semibold hover:bg-dark/90 transition-colors duration-200 cursor-pointer disabled:opacity-60"
               >
                 {searching ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -241,12 +242,12 @@ export default function Hero() {
 
             <motion.p
               variants={itemVariants}
-              className="text-sm text-dark/60 text-center md:text-left"
+              className="text-sm text-white/75 text-center md:text-left"
             >
               Or{" "}
               <Link
-                to="/contact"
-                className="font-semibold text-dark underline underline-offset-2 hover:text-primary transition-colors"
+                to="/login"
+                className="font-semibold text-white underline underline-offset-2 hover:text-primary transition-colors"
               >
                 Sign In
               </Link>
@@ -263,7 +264,7 @@ export default function Hero() {
             <img
               src="/app-screenshot.png"
               alt="Piki Food App"
-              className="w-full max-w-[400px] h-auto drop-shadow-2xl"
+              className="w-full max-w-[400px] h-auto drop-shadow-2xl mt-12"
             />
           </motion.div>
         </div>

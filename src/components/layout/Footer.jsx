@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { UtensilsCrossed, Mail, Phone, MapPin, Globe, MessageCircle, Camera } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, MessageCircle, Camera } from "lucide-react";
 
 const quickLinks = [
   { label: "Home", path: "/" },
@@ -22,10 +22,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white">
-                <UtensilsCrossed className="w-5 h-5" />
-              </div>
+            <Link to="/" className="flex items-center mb-4">
               <span className="text-xl font-[family-name:var(--font-heading)] font-bold text-white tracking-tight">
                 Piki<span className="text-primary">Food</span>
               </span>
@@ -38,21 +35,21 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Facebook"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200"
+                className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-primary transition-colors duration-200"
               >
                 <Globe className="w-5 h-5" />
               </a>
               <a
                 href="#"
                 aria-label="Twitter"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200"
+                className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-primary transition-colors duration-200"
               >
                 <MessageCircle className="w-5 h-5" />
               </a>
               <a
                 href="#"
                 aria-label="Instagram"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200"
+                className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-primary transition-colors duration-200"
               >
                 <Camera className="w-5 h-5" />
               </a>

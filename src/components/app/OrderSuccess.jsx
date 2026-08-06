@@ -1,107 +1,108 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import gsap from "gsap";
 import { Check } from "lucide-react";
 
-const CONFETTI_COLORS = ["#16A34A", "#22C55E", "#FACC15", "#F97316", "#3B82F6", "#EF4444"];
-
-function seeded(i, salt) {
-  const x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453;
-  return x - Math.floor(x);
-}
+const TOTAL_TIME = 4000;
 
 export default function OrderSuccess({ order }) {
   const navigate = useNavigate();
+  const rootRef = useRef(null);
+  const cardRef = useRef(null);
+  const tickRef = useRef(null);
+  const ringRef = useRef(null);
+  const titleRef = useRef(null);
+  const badgeRef = useRef(null);
+  const hintRef = useRef(null);
+
   const orderNumber = order.orderNumber?.replace("PIKI-", "") || order.id.slice(0, 6);
 
-  const confetti = useMemo(
-    () =>
-      Array.from({ length: 18 }, (_, i) => ({
-        id: i,
-        left: seeded(i, 1) * 100,
-        delay: seeded(i, 2) * 0.8,
-        duration: 1.8 + seeded(i, 3) * 1.4,
-        color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-        size: 8 + seeded(i, 4) * 8,
-      })),
-    []
-  );
-
   useEffect(() => {
-    const t = setTimeout(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(
+        cardRef.current,
+        { y: 40, scale: 0.92, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.5 }
+      )
+        .fromTo(
+          tickRef.current,
+          { scale: 0, rotate: -120, opacity: 0 },
+          { scale: 1, rotate: 0, opacity: 1, duration: 0.7, ease: "elastic.out(1, 0.5)" },
+          "-=0.25"
+        )
+        .fromTo(
+          ringRef.current,
+          { scale: 0.6, opacity: 0.9 },
+          { scale: 2.2, opacity: 0, duration: 1.1, ease: "power2.out" },
+          "-=0.35"
+        )
+        .fromTo(
+          titleRef.current,
+          { y: 16, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45 },
+          "-=0.6"
+        )
+        .fromTo(
+          badgeRef.current,
+          { scale: 0.7, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" },
+          "-=0.2"
+        )
+        .fromTo(
+          hintRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
+          "-=0.15"
+        );
+    }, rootRef);
+
+    const timer = setTimeout(() => {
       navigate(`/app/track/${order.id}`, { replace: true });
-    }, 3500);
-    return () => clearTimeout(t);
+    }, TOTAL_TIME);
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, [order.id, navigate]);
 
   return (
-    <div className="fixed inset-0 z-[90] bg-dark flex items-center justify-center p-6">
-      <div className="absolute inset-0 overflow-hidden">
-        {confetti.map((c) => (
-          <motion.span
-            key={c.id}
-            initial={{ y: -60, x: 0, opacity: 1, rotate: 0 }}
-            animate={{ y: "105vh", x: c.id % 2 === 0 ? 40 : -40, opacity: 0, rotate: 360 }}
-            transition={{ duration: c.duration, delay: c.delay, ease: "easeIn" }}
-            className="absolute top-0"
-            style={{ left: `${c.left}%`, width: c.size, height: c.size, backgroundColor: c.color }}
-          />
-        ))}
-      </div>
+    <div
+      ref={rootRef}
+      className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm flex items-center justify-center p-6"
+    >
+      <div ref={cardRef} className="relative z-10 bg-white w-full max-w-sm shadow-2xl p-8 text-center">
+        <div className="relative w-20 h-20 mx-auto">
+          <span ref={ringRef} className="absolute inset-0 border-4 border-primary rounded-full pointer-events-none" />
+          <div
+            ref={tickRef}
+            className="absolute inset-0 bg-primary flex items-center justify-center rounded-full shadow-xl shadow-primary/30"
+          >
+            <Check className="w-10 h-10 text-white" strokeWidth={3} />
+          </div>
+        </div>
 
-      <div className="relative z-10 text-center max-w-md w-full">
-        <motion.div
-          initial={{ scale: 0, rotate: -30 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          className="w-20 h-20 bg-primary mx-auto flex items-center justify-center shadow-2xl shadow-primary/30"
-        >
-          <Check className="w-10 h-10 text-white" strokeWidth={3} />
-        </motion.div>
-
-        <motion.div
-          initial={{ scale: 1.4, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.4 }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24 border-2 border-primary pointer-events-none"
-        />
-
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.5 }}
-          className="mt-8 text-3xl md:text-4xl font-bold text-white font-[family-name:var(--font-heading)]"
+        <h2
+          ref={titleRef}
+          className="mt-6 text-2xl font-bold text-dark font-[family-name:var(--font-heading)]"
         >
           Thank you for your order!
-        </motion.h1>
+        </h2>
+        <p className="text-sm text-gray-500 mt-2">Your delicious food is being prepared.</p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.5 }}
-          className="mt-4 text-white/70 text-base md:text-lg"
+        <div
+          ref={badgeRef}
+          className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-primary-light text-primary font-semibold text-sm"
         >
-          Your delicious food is being prepared. We'll update you on its status in real time.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.75, duration: 0.4 }}
-          className="mt-8 inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-white/20 text-white font-semibold"
-        >
-          <Check className="w-4 h-4 text-primary" />
+          <Check className="w-4 h-4" />
           Order #{orderNumber}
-        </motion.div>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.1, duration: 0.5 }}
-          className="mt-10 text-white/40 text-sm"
-        >
+        <p ref={hintRef} className="mt-8 text-xs text-gray-400">
           Taking you to order tracking...
-        </motion.p>
+        </p>
       </div>
     </div>
   );

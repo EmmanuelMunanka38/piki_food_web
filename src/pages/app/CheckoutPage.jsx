@@ -22,7 +22,7 @@ import { detectAddress } from "../../lib/location";
 import UsdPaymentModal from "../../components/app/UsdPaymentModal";
 import OrderSuccess from "../../components/app/OrderSuccess";
 
-const MOBILE_MONEY_ORDER = ["airtel_money", "mixx_by_yas", "halopesa", "mpesa", "tigo_pesa"];
+const MOBILE_MONEY_ORDER = ["airtel_money", "mixx_by_yas", "halopesa", "mpesa"];
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -133,12 +133,11 @@ export default function CheckoutPage() {
   const inputClass =
     "w-full px-3 py-2.5 border border-gray-200 focus:border-primary focus:outline-none transition-colors duration-200 text-sm bg-white";
 
-  if (placedOrder) {
-    return <OrderSuccess order={placedOrder} />;
-  }
-
   return (
-    <div className="max-w-4xl mx-auto pb-16">      <button
+    <>
+      {placedOrder && <OrderSuccess order={placedOrder} />}
+
+      <div className="max-w-4xl mx-auto pb-16">      <button
         onClick={() => navigate(-1)}
         className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-dark transition-colors mb-4 cursor-pointer"
       >
@@ -281,7 +280,15 @@ export default function CheckoutPage() {
                         : "border-gray-200 hover:border-primary"
                     }`}
                   >
-                    <Icon className={`w-5 h-5 ${isSelected ? "text-primary" : "text-gray-400"}`} />
+                    {method.logo ? (
+                      <img
+                        src={method.logo}
+                        alt={method.label}
+                        className="w-8 h-8 object-contain shrink-0"
+                      />
+                    ) : (
+                      <Icon className={`w-5 h-5 ${isSelected ? "text-primary" : "text-gray-400"}`} />
+                    )}
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-dark">{method.label}</p>
                       <p className="text-xs text-gray-400">
@@ -388,6 +395,7 @@ export default function CheckoutPage() {
           isDefault: address.isDefault,
         }}
       />
-    </div>
+      </div>
+    </>
   );
 }

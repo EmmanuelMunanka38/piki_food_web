@@ -234,7 +234,7 @@ export default function UsdPaymentModal({
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="+255 712 345 678"
+            placeholder="255 712 345 678"
             className="w-full pl-11 pr-4 py-3 border border-gray-200 focus:border-primary focus:outline-none transition-colors duration-200 text-sm"
           />
         </div>
@@ -311,8 +311,8 @@ export default function UsdPaymentModal({
             {(state === "paying" || state === "polling") && (
               <div className="text-center py-8">
                 <div className="relative w-20 h-20 mx-auto mb-5">
-                  <div className="absolute inset-0 border-4 border-primary/20" />
-                  <div className="absolute inset-0 border-4 border-transparent border-t-primary animate-spin" />
+                  <div className="absolute inset-0 border-4 border-primary/20 rounded-full" />
+                  <div className="absolute inset-0 border-4 border-transparent border-t-primary rounded-full animate-spin" />
                   <Smartphone className="absolute inset-0 m-auto w-8 h-8 text-primary" />
                 </div>
                 <p className="text-dark font-semibold">

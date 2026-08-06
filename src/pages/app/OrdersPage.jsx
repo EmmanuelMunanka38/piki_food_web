@@ -9,6 +9,7 @@ import {
   RefreshCw,
   XCircle,
   Store,
+  Trash2,
 } from "lucide-react";
 import { useOrders } from "../../hooks/queries";
 import { ordersService } from "../../services/orders";
@@ -44,6 +45,35 @@ export default function OrdersPage() {
   const { data: orders, isLoading } = useOrders();
   const queryClient = useQueryClient();
   const [busyId, setBusyId] = useState(null);
+  const [selected, setSelected] = useState([]);
+  const [deleting, setDeleting] = useState(false);
+
+  const validSelected = selected.filter((id) => orders?.some((o) => o.id === id));
+  const allSelected = orders?.length > 0 && validSelected.length === orders.length;
+
+  const toggleSelect = (id) => {
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    setSelected(allSelected ? [] : orders.map((o) => o.id));
+  };
+
+  const handleDeleteSelected = async () => {
+    if (validSelected.length === 0) return;
+    setDeleting(true);
+    try {
+      await Promise.all(validSelected.map((id) => ordersService.deleteOrder(id)));
+      setSelected([]);
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    } catch {
+      // ignore
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const handleCancel = async (id) => {
     setBusyId(id);
@@ -100,32 +130,68 @@ export default function OrdersPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-2xl md:text-3xl font-bold text-dark font-[family-name:var(--font-heading)] mb-6">
-        My Orders
-      </h1>
+      <div className="flex items-center justify-between gap-3 mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-dark font-[family-name:var(--font-heading)]">
+          My Orders
+        </h1>
+      </div>
+
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <label className="flex items-center gap-2 text-sm font-semibold text-dark cursor-pointer">
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={toggleSelectAll}
+            className="w-4 h-4 accent-primary cursor-pointer"
+          />
+          Select all
+        </label>
+
+        {validSelected.length > 0 && (
+          <button
+            onClick={handleDeleteSelected}
+            disabled={deleting}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-60"
+          >
+            {deleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+            Delete {validSelected.length} {validSelected.length === 1 ? "order" : "orders"}
+          </button>
+        )}
+      </div>
 
       <div className="space-y-4">
         {orders.map((order, i) => {
           const canCancel = ["pending", "restaurant_accepted"].includes(order.status);
           const style = STATUS_STYLES[order.status] || STATUS_STYLES.pending;
           const busy = busyId === order.id;
+          const isSelected = validSelected.includes(order.id);
           return (
             <motion.div
               key={order.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="bg-white border border-gray-100 shadow-sm p-5"
+              className={`bg-white border shadow-sm p-5 transition-colors ${
+                isSelected ? "border-primary bg-primary-light" : "border-gray-100"
+              }`}
             >
               <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                <div>
-                  <p className="font-bold text-dark font-[family-name:var(--font-heading)]">
-                    {order.restaurant?.name || "Restaurant"}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    #{order.orderNumber?.replace("PIKI-", "") || order.id.slice(0, 6)} ·{" "}
-                    {formatDate(order.createdAt)}
-                  </p>
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => toggleSelect(order.id)}
+                    className="mt-1 w-4 h-4 accent-primary cursor-pointer"
+                  />
+                  <div>
+                    <p className="font-bold text-dark font-[family-name:var(--font-heading)]">
+                      {order.restaurant?.name || "Restaurant"}
+                    </p>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      #{order.orderNumber?.replace("PIKI-", "") || order.id.slice(0, 6)} ·{" "}
+                      {formatDate(order.createdAt)}
+                    </p>
+                  </div>
                 </div>
                 <span className={`px-3 py-1 text-xs font-semibold border ${style}`}>
                   {STATUS_LABELS[order.status] || order.status}

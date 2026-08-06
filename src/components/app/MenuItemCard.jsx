@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useCartStore } from "../../store/cartStore";
 import { formatTZS } from "../../lib/format";
 import FoodImage from "./FoodImage";
+import FoodDetailModal from "./FoodDetailModal";
 
 export default function MenuItemCard({ item, showRestaurant = false }) {
   const addItem = useCartStore((s) => s.addItem);
+  const [open, setOpen] = useState(false);
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -12,7 +15,11 @@ export default function MenuItemCard({ item, showRestaurant = false }) {
   };
 
   return (
-    <div className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col">
+    <>
+      <div
+        onClick={() => setOpen(true)}
+        className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col cursor-pointer"
+      >
       <div className="relative aspect-[4/3] overflow-hidden">
         <FoodImage
           src={item.image}
@@ -57,6 +64,9 @@ export default function MenuItemCard({ item, showRestaurant = false }) {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+
+      <FoodDetailModal item={item} open={open} onClose={() => setOpen(false)} />
+    </>
   );
 }

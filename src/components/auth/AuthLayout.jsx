@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UtensilsCrossed } from "lucide-react";
 
 export default function AuthLayout({ image, title, subtitle, children }) {
   return (
@@ -17,10 +16,7 @@ export default function AuthLayout({ image, title, subtitle, children }) {
         />
         <div className="absolute inset-0 bg-dark/60" />
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link to="/" className="flex items-center gap-1.5">
-            <div className="w-10 h-10 bg-primary flex items-center justify-center">
-              <UtensilsCrossed className="w-5 h-5 text-white" />
-            </div>
+          <Link to="/" className="flex items-center">
             <span className="text-2xl font-extrabold text-white tracking-tight font-[family-name:var(--font-heading)]">
               Piki<span className="text-primary">Food</span>
             </span>
@@ -48,12 +44,9 @@ export default function AuthLayout({ image, title, subtitle, children }) {
         className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white"
       >
         <div className="w-full max-w-md">
-          <div className="lg:hidden flex items-center gap-1.5 mb-8">
-            <Link to="/" className="flex items-center gap-1.5">
-              <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                <UtensilsCrossed className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-xl font-extrabold text-dark tracking-tight font-[family-name:var(--font-heading)]">
+          <div className="lg:hidden flex items-center mb-8">
+            <Link to="/" className="flex items-center">
+              <span className="text-xl font-extrabold text-black-green tracking-tight font-[family-name:var(--font-heading)]">
                 Piki<span className="text-primary">Food</span>
               </span>
             </Link>

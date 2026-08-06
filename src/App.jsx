@@ -114,7 +114,7 @@ function App() {
           />
         </Routes>
       </main>
-      {!isAuthPage && !isAppPage && <Footer />}
+      {!isAppPage && <Footer />}
     </div>
   );
 }
