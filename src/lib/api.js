@@ -1,6 +1,6 @@
 import { getAccessToken, getRefreshToken, setTokens, clearTokens } from "./tokens";
 
-export const API_ORIGIN = import.meta.env.VITE_API_URL || "http://localhost:3000";
+export const API_ORIGIN = import.meta.env.VITE_API_URL || "https://tz-delivary-baackend.onrender.com";
 export const BASE_URL = `${API_ORIGIN}/api`;
 
 let isRefreshing = false;
