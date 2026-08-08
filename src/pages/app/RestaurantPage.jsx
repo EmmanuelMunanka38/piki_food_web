@@ -6,7 +6,6 @@ import {
   Clock,
   Bike,
   MapPin,
-  Loader2,
   AlertTriangle,
   Store,
 } from "lucide-react";
@@ -15,6 +14,7 @@ import { useCartStore } from "../../store/cartStore";
 import { formatTZS } from "../../lib/format";
 import FoodImage from "../../components/app/FoodImage";
 import MenuItemCard from "../../components/app/MenuItemCard";
+import { RestaurantPageSkeleton } from "../../components/app/Skeletons";
 
 export default function RestaurantPage() {
   const { id } = useParams();
@@ -58,12 +58,7 @@ export default function RestaurantPage() {
   );
 
   if (isLoading) {
-    return (
-      <div className="py-24 flex flex-col items-center gap-3 text-gray-400">
-        <Loader2 className="w-8 h-8 animate-spin" />
-        <p className="text-sm">Loading restaurant...</p>
-      </div>
-    );
+    return <RestaurantPageSkeleton />;
   }
 
   if (error || !restaurant) {

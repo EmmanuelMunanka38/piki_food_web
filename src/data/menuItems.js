@@ -1,4 +1,5 @@
-export const restaurants = [
+/**
+ * export const restaurants = [
   {
     id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     name: "Mama Ntilie Restaurant",
@@ -148,3 +149,5 @@ export const foodCompanies = [
 
 export const getLogoUrl = (domain) =>
   `https://img.logo.dev/${domain}?token=${LOGO_DEV_TOKEN}&size=120&format=png&fallback=monogram`;
+
+ */
