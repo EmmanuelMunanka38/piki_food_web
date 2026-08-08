@@ -279,7 +279,7 @@ export default function MsosiApiPage() {
                 Get API Key
               </Button>
               <a href="#docs">
-                <Button variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-light" size="lg">
                   <BookOpen className="w-4 h-4" />
                   Read Docs
                 </Button>

@@ -3,7 +3,6 @@ import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Search,
-  Loader2,
   ArrowRight,
   Tag,
   X,
@@ -14,6 +13,13 @@ import { greeting } from "../../lib/format";
 import RestaurantCard from "../../components/app/RestaurantCard";
 import MenuItemCard from "../../components/app/MenuItemCard";
 import FoodImage from "../../components/app/FoodImage";
+import Skeleton from "../../components/ui/Skeleton";
+import {
+  RestaurantCardSkeleton,
+  MenuItemCardSkeleton,
+  PromoCardSkeleton,
+  CategoryChipsSkeleton,
+} from "../../components/app/Skeletons";
 
 export default function BrowsePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -70,9 +76,10 @@ export default function BrowsePage() {
       {q ? (
         <section>
           {foodSearch.isLoading ? (
-            <div className="py-20 flex flex-col items-center gap-3 text-gray-400">
-              <Loader2 className="w-8 h-8 animate-spin" />
-              <p className="text-sm">Searching foods...</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {[...Array(8)].map((_, i) => (
+                <MenuItemCardSkeleton key={i} />
+              ))}
             </div>
           ) : (foodSearch.data || []).length === 0 ? (
             <div className="py-20 text-center">
@@ -91,36 +98,47 @@ export default function BrowsePage() {
       ) : (
         <>
           <section>
-            <div className="flex items-center gap-3 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0">
-              <button
-                onClick={() => setSelectedCategory("")}
-                className={`shrink-0 px-4 py-2 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
-                  !selectedCategory
-                    ? "bg-primary text-white"
-                    : "bg-white text-dark/70 border border-gray-200 hover:border-primary hover:text-primary"
-                }`}
-              >
-                All
-              </button>
-              {(categories.data || []).map((cat) => (
+            {categories.isLoading ? (
+              <CategoryChipsSkeleton />
+            ) : (
+              <div className="flex items-center gap-3 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0">
                 <button
-                  key={cat.id}
-                  onClick={() =>
-                    setSelectedCategory(selectedCategory === cat.name ? "" : cat.name)
-                  }
+                  onClick={() => setSelectedCategory("")}
                   className={`shrink-0 px-4 py-2 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
-                    selectedCategory === cat.name
+                    !selectedCategory
                       ? "bg-primary text-white"
                       : "bg-white text-dark/70 border border-gray-200 hover:border-primary hover:text-primary"
                   }`}
                 >
-                  {cat.name}
+                  All
                 </button>
-              ))}
-            </div>
+                {(categories.data || []).map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() =>
+                      setSelectedCategory(selectedCategory === cat.name ? "" : cat.name)
+                    }
+                    className={`shrink-0 px-4 py-2 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
+                      selectedCategory === cat.name
+                        ? "bg-primary text-white"
+                        : "bg-white text-dark/70 border border-gray-200 hover:border-primary hover:text-primary"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            )}
           </section>
 
-          {promotions.data?.length > 0 && (
+          {promotions.isLoading ? (
+            <section>
+              <div className="grid md:grid-cols-2 gap-5">
+                <PromoCardSkeleton />
+                <PromoCardSkeleton />
+              </div>
+            </section>
+          ) : promotions.data?.length > 0 && (
             <section>
               <div className="grid md:grid-cols-2 gap-5">
                 {promotions.data.slice(0, 2).map((promo) => (
@@ -175,7 +193,13 @@ export default function BrowsePage() {
                 Featured Restaurants
               </h2>
             </div>
-            {filteredFeatured.length === 0 ? (
+            {featured.isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {[...Array(8)].map((_, i) => (
+                  <RestaurantCardSkeleton key={i} />
+                ))}
+              </div>
+            ) : filteredFeatured.length === 0 ? (
               <div className="py-10 text-center text-gray-400 text-sm">
                 {selectedCategory
                   ? "No restaurants in this category yet"
@@ -190,7 +214,18 @@ export default function BrowsePage() {
             )}
           </section>
 
-          {popular.data?.length > 0 && (
+          {popular.isLoading ? (
+            <section>
+              <div className="flex items-center justify-between mb-5">
+                <Skeleton className="h-7 w-44" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {[...Array(8)].map((_, i) => (
+                  <MenuItemCardSkeleton key={i} />
+                ))}
+              </div>
+            </section>
+          ) : popular.data?.length > 0 && (
             <section>
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-xl md:text-2xl font-bold text-dark font-[family-name:var(--font-heading)]">

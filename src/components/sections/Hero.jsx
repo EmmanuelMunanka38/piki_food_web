@@ -253,20 +253,6 @@ export default function Hero() {
               </Link>
             </motion.p>
           </motion.div>
-
-          <motion.div
-            className="hidden md:flex flex-1 justify-end items-center"
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            <img
-              src="/app-screenshot.png"
-              alt="Piki Food App"
-              className="w-full max-w-[400px] h-auto drop-shadow-2xl mt-12"
-            />
-          </motion.div>
         </div>
       </div>
     </section>

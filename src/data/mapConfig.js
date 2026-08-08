@@ -16,21 +16,6 @@ export const SERVICE_CITIES = [
     country: "Tanzania",
     coordinates: [33.4513, -8.9015],
   },
-  {
-    name: "Nairobi",
-    country: "Kenya",
-    coordinates: [36.8219, -1.2921],
-  },
-  {
-    name: "Mombasa",
-    country: "Kenya",
-    coordinates: [39.6682, -4.0435],
-  },
-  {
-    name: "Kisumu",
-    country: "Kenya",
-    coordinates: [34.7617, -0.1022],
-  },
 ];
 
 export function isCitySupported(placeName) {
