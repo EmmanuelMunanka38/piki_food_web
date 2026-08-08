@@ -9,6 +9,8 @@ const variants = {
     "bg-transparent text-dark hover:bg-gray-100",
   dark:
     "bg-dark text-white hover:bg-dark-lighter shadow-lg",
+  "outline-light":
+    "bg-transparent text-white border-2 border-white/40 hover:bg-white/10 hover:border-white/70",
 };
 
 const sizes = {

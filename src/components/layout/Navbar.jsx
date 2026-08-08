@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, MapPin, Phone, Download, ArrowRight, Code2, ShoppingBag } from "lucide-react";
+import { Menu, X, Home, Tags, Phone, Download, ArrowRight, Code2, ShoppingBag } from "lucide-react";
 import { getAccessToken } from "../../lib/tokens";
 
 const navLinks = [
   { label: "Home", path: "/", icon: Home }, 
-  { label: "How It Works", path: "/how-it-works", icon: MapPin },
+  { label: "Pricing", path: "/pricing", icon: Tags },
   { label: "Contact", path: "/contact", icon: Phone },
   { label: "Download", path: "/download", icon: Download },
 ];

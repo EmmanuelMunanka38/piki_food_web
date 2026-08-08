@@ -124,6 +124,38 @@ export const testimonials = [
     rating: 5,
     review: "I switched from international delivery apps to Piki Food six months ago and haven't looked back. The pricing is transparent with no hidden fees, the riders are professional, and the M-Pesa integration means I never have to worry about card issues. It's built specifically for how we actually pay and order in East Africa.",
   },
+  {
+    id: 5,
+    name: "Neema Joseph",
+    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop&crop=face",
+    location: "Dar es Salaam",
+    rating: 5,
+    review: "Piki Food imebadilisha jinsi ninavyopata chakula. Naagiza kutoka mikahawa ninayopenda na kulipa kwa M-Pesa bila shida yoyote. Chakula changu kinafika kikiwa kikali kwa chini ya dakika thelathini. Nawashauri wote wajaribu leo!",
+  },
+  {
+    id: 6,
+    name: "Peter Otieno",
+    avatar: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&h=150&fit=crop&crop=face",
+    location: "Kisumu",
+    rating: 5,
+    review: "Piki Food has completely changed how I order food in Kisumu. The app is fast, the restaurants are well vetted, and the riders are always professional. Being able to pay with M-Pesa makes everything seamless — no cards, no cash needed.",
+  },
+  {
+    id: 7,
+    name: "Zainabu Mushi",
+    avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&h=150&fit=crop&crop=face",
+    location: "Dodoma",
+    rating: 5,
+    review: "Ufuatiliaji wa wakati halisi unanipa amani ya akili kila ninapoagiza. Naweza kuona mwendesha baiskeli wangu anakotoka hadi anapofika. Pia, msaada wa wateja kwa WhatsApp unajibu haraka sana. Huduma bora kabisa!",
+  },
+  {
+    id: 8,
+    name: "Oscar Wanjiru",
+    avatar: "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=150&h=150&fit=crop&crop=face",
+    location: "Nairobi",
+    rating: 5,
+    review: "As a busy professional in Nairobi, I rely on Piki Food almost daily. The selection is fantastic, orders arrive on time, and the WhatsApp support responds within minutes if anything goes wrong. It has genuinely made my weekdays easier.",
+  },
 ];
 
 

@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Globe, MessageCircle, Camera } from "lucide-react"
 const quickLinks = [
   { label: "Home", path: "/" },
   { label: "Menu", path: "/menu" },
-  { label: "How It Works", path: "/how-it-works" },
+  { label: "Pricing", path: "/pricing" },
   { label: "Msosi API", path: "/api" },
   { label: "Contact Us", path: "/contact" },
   { label: "Download App", path: "/download" },
