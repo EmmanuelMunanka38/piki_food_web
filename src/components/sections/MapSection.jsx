@@ -6,7 +6,44 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MAPBOX_TOKEN, SERVICE_CITIES } from "../../data/mapConfig";
 
 const tanzaniaCities = SERVICE_CITIES.filter((c) => c.country === "Tanzania");
-const kenyaCities = SERVICE_CITIES.filter((c) => c.country === "Kenya");
+
+const allTanzaniaRegions = [
+  "Arusha",
+  "Dar es Salaam",
+  "Dodoma",
+  "Geita",
+  "Iringa",
+  "Kagera",
+  "Katavi",
+  "Kigoma",
+  "Kilimanjaro",
+  "Lindi",
+  "Manyara",
+  "Mara",
+  "Mbeya",
+  "Morogoro",
+  "Mtwara",
+  "Mwanza",
+  "Njombe",
+  "Pemba North",
+  "Pemba South",
+  "Pwani",
+  "Rukwa",
+  "Ruvuma",
+  "Shinyanga",
+  "Simiyu",
+  "Singida",
+  "Songwe",
+  "Tabora",
+  "Tanga",
+  "Zanzibar Central",
+  "Zanzibar North",
+  "Zanzibar Urban",
+];
+
+const unservedRegions = allTanzaniaRegions.filter(
+  (name) => !tanzaniaCities.some((c) => c.name === name)
+);
 
 const cityStats = {
   "Dar es Salaam": { restaurants: 240, avgTime: "25 min" },
@@ -149,26 +186,6 @@ export default function MapSection() {
                   ))}
                 </div>
               </div>
-              <div>
-                <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                  Kenya
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {kenyaCities.map((city) => (
-                    <button
-                      key={city.name}
-                      onClick={() => setSelectedCity(city)}
-                      className={`px-2.5 py-1 text-[11px] font-medium transition-all duration-200 cursor-pointer ${
-                        selectedCity?.name === city.name
-                          ? "bg-primary text-white shadow-sm"
-                          : "bg-gray-50 text-gray-600 hover:bg-primary-light hover:text-primary border border-gray-200"
-                      }`}
-                    >
-                      {city.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
 
@@ -179,6 +196,39 @@ export default function MapSection() {
             </div>
           </div>
         </motion.div>
+
+        <div className="mt-12 md:mt-16">
+          <div className="max-w-3xl">
+            <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase text-primary bg-primary-light rounded-full">
+              Our Target
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold text-dark leading-tight font-[family-name:var(--font-heading)] mb-4">
+              Every region of Tanzania, within reach
+            </h3>
+            <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+              Our goal is to bring Piki Food to all 31 regions of Tanzania — from the
+              busy streets of Dar es Salaam to the shores of Zanzibar and the highlands
+              of Mbeya. We're expanding fast so no kitchen is too far and no customer is
+              left without the food they love.
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3">
+              Regions we haven't reached yet
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              {unservedRegions.map((region) => (
+                <span
+                  key={region}
+                  className="px-3 py-2 text-[11px] font-medium text-gray-500 bg-gray-50 border border-gray-200"
+                >
+                  {region}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

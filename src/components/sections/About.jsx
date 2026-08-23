@@ -1,88 +1,136 @@
 import { motion } from "framer-motion";
-import { MapPin, Bike, ShieldCheck } from "lucide-react";
-
-const highlights = [
-  { icon: MapPin, text: "Serving Dar es Salaam, Nairobi, Mwanza, Arusha, Dodoma & Kisumu" },
-  { icon: Bike, text: "GPS-tracked riders with temperature-controlled packaging" },
-  { icon: ShieldCheck, text: "Secure M-Pesa payments settled directly via certified APIs" },
-];
+import { MapPin, Store, Users, Timer, Leaf, ShieldCheck, Handshake } from "lucide-react";
+import SectionTitle from "../ui/SectionTitle";
 
 const stats = [
-  { value: "500+", label: "Restaurant partners" },
-  { value: "50K+", label: "Orders delivered" },
-  { value: "<30min", label: "Average delivery" },
-  { value: "2", label: "Countries served" },
+  { value: "8+", label: "Cities served", icon: MapPin },
+  { value: "500+", label: "Partner restaurants", icon: Store },
+  { value: "120K", label: "Active customers", icon: Users },
+  { value: "30min", label: "Avg. delivery time", icon: Timer },
 ];
+
+const values = [
+  {
+    icon: Leaf,
+    title: "Built for local tastes",
+    description:
+      "From ugali to biryani, we celebrate the food East Africans actually love — sourced from the kitchens around you.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Secure M-Pesa payments",
+    description:
+      "Pay the way you already do. Transparent pricing, no hidden fees, and settlements you can trust.",
+  },
+  {
+    icon: Handshake,
+    title: "Partners first",
+    description:
+      "We grow with restaurants and riders, giving them the tools and fair economics to thrive.",
+  },
+];
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function About() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section id="about" className="bg-off-white py-16 md:py-24">
       <div className="mx-auto max-w-[1440px] px-5 md:px-8 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="absolute -top-3 -left-3 w-full h-full border border-primary/20" />
-            <img
-              src="/food2.png"
-              alt="Ugali na Nyama, a traditional Tanzanian dish"
-              className="w-full h-[320px] md:h-[440px] object-cover relative"
-              loading="lazy"
-            />
-            <div className="absolute -bottom-6 right-6 bg-dark text-white px-6 py-4 shadow-xl">
-              <p className="text-3xl font-extrabold font-[family-name:var(--font-heading)]">2026</p>
-              <p className="text-xs text-white/60">Serving East Africa</p>
-            </div>
-          </motion.div>
+        <SectionTitle
+          title="Redefining food delivery in East Africa"
+          description="We're on a mission to make great local food accessible to everyone — quickly, affordably, and on the payment methods you already trust."
+        />
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-dark leading-tight mb-6 font-[family-name:var(--font-heading)]">
-              Bringing East Africa's favorite meals to your doorstep
-            </h2>
-            <p className="text-gray-500 text-lg leading-relaxed mb-4">
-              Piki Food started in Dar es Salaam with a simple idea: make food
-              delivery fast, reliable, and built for how East Africans actually
-              pay and order. Today we partner with hundreds of restaurants
-              across Tanzania and Kenya.
-            </p>
-            <p className="text-gray-500 text-lg leading-relaxed mb-8">
-              Every order is tracked in real time, every payment is settled
-              securely through M-Pesa, and every rider is trained to deliver
-              your food hot and on time.
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16"
+        >
+          <motion.div variants={itemVariants} className="flex-1 w-full">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-dark leading-tight font-[family-name:var(--font-heading)] mb-4">
+              Food that feels like home, delivered with care
+            </h3>
+            <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8">
+              Piki Food started with a simple idea: ordering food should be as easy
+              as sending a text. Today we connect thousands of hungry customers with
+              the best local restaurants across Tanzania and Kenya — with real-time
+              tracking, reliable riders, and payments that just work.
             </p>
 
-            <ul className="space-y-4 mb-10">
-              {highlights.map((item) => (
-                <li key={item.text} className="flex items-start gap-3">
-                  <div className="w-9 h-9 bg-primary-light flex items-center justify-center shrink-0 mt-0.5">
-                    <item.icon className="w-4 h-4 text-primary" />
-                  </div>
-                  <span className="text-gray-600">{item.text}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-gray-100 pt-8">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6">
               {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl md:text-3xl font-extrabold text-primary font-[family-name:var(--font-heading)]">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
+                <div
+                  key={stat.label}
+                  className="bg-white border border-gray-100 shadow-sm p-5 flex items-center gap-4"
+                >
+                  <div className="w-10 h-10 bg-primary-light flex items-center justify-center flex-shrink-0">
+                    <stat.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xl md:text-2xl font-bold text-dark leading-none">
+                      {stat.value}
+                    </p>
+                    <p className="text-xs md:text-sm text-gray-400 mt-1">
+                      {stat.label}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </motion.div>
-        </div>
+
+          <motion.div variants={itemVariants} className="flex-1 w-full">
+            <div className="relative">
+              <div className="absolute -top-3 -left-3 w-full h-full border border-primary/20" />
+              <img
+                src="/restu.png"
+                alt="A local chef preparing fresh food in the kitchen"
+                className="w-full h-[320px] md:h-[440px] object-cover relative"
+                loading="lazy"
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-20"
+        >
+          {values.map((value) => (
+            <motion.div
+              key={value.title}
+              variants={itemVariants}
+              className="bg-white border border-gray-100 shadow-sm p-6 md:p-8"
+            >
+              <div className="w-11 h-11 bg-primary-light flex items-center justify-center mb-5">
+                <value.icon className="w-5 h-5 text-primary" />
+              </div>
+              <h4 className="text-lg font-bold text-dark mb-2">{value.title}</h4>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {value.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

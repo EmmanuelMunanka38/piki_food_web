@@ -27,7 +27,7 @@ const rows = [
     image: "/food1.png",
     alt: "Delicious meal on a table",
     reversed: true,
-  },
+  }, 
 ];
 
 const containerVariants = {

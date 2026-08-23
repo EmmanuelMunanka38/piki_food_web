@@ -12,13 +12,13 @@ export default function HomePage() {
 
       <FoodCompanies />
 
-      <About />
+      <About /> 
 
       <PlatformShowcase />
 
-      <Testimonials />
-
       <MapSection />
+
+      <Testimonials />
     </>
   );
 }
