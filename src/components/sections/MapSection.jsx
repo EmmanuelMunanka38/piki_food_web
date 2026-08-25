@@ -64,6 +64,9 @@ export default function MapSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-dark font-[family-name:var(--font-heading)] tracking-tight">
             Where We Are Found
           </h2>
+          <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl mx-auto">
+            Discover the cities and regions we currently serve, with more being added every month.
+          </p>
           <div className="w-16 h-1 bg-primary mx-auto mt-3" />
         </div>
 
@@ -100,11 +103,6 @@ export default function MapSection() {
                   className="cursor-pointer group"
                 >
                   <div className="relative flex flex-col items-center">
-                    <motion.div
-                      animate={{ scale: [1, 1.15, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -top-1 w-8 h-8 rounded-full bg-primary/15"
-                    />
                     <div className="w-10 h-10 bg-primary flex items-center justify-center shadow-lg shadow-primary/25 group-hover:shadow-primary/40 transition-shadow duration-300">
                       <MapPin className="w-5 h-5 text-white" />
                     </div>
@@ -199,7 +197,7 @@ export default function MapSection() {
 
         <div className="mt-12 md:mt-16">
           <div className="max-w-3xl">
-            <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase text-primary bg-primary-light rounded-full">
+            <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase text-primary">
               Our Target
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-dark leading-tight font-[family-name:var(--font-heading)] mb-4">

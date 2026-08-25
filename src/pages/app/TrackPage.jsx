@@ -241,9 +241,7 @@ export default function TrackPage() {
         <div className="space-y-6">
           <div className="bg-white border border-gray-100 shadow-sm p-5">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-primary-light flex items-center justify-center overflow-hidden">
-                <Store className="w-6 h-6 text-primary" />
-              </div>
+              <Store className="w-6 h-6 text-primary shrink-0" />
               <div>
                 <p className="font-bold text-dark">{order.restaurant?.name}</p>
                 <p className="text-xs text-gray-400">{order.restaurant?.address}</p>

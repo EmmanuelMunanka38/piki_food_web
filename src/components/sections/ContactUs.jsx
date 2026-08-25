@@ -292,9 +292,7 @@ export default function ContactUs() {
                   variants={itemVariants}
                   className="flex items-start gap-4 bg-white border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
-                  <div className="w-12 h-12 bg-primary-light flex items-center justify-center shrink-0">
-                    <info.icon className="w-5 h-5 text-primary" />
-                  </div>
+                  <info.icon className="w-5 h-5 text-primary shrink-0" />
                   <div>
                     <h4 className="font-semibold text-dark mb-1">{info.label}</h4>
                     <p className="text-gray-500">{info.value}</p>

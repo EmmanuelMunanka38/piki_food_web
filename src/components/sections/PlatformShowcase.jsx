@@ -73,9 +73,7 @@ export default function PlatformShowcase() {
                 <ul className="space-y-3">
                   {row.perks.map((perk) => (
                     <li key={perk.text} className="flex items-start gap-3">
-                      <div className="w-7 h-7 bg-primary-light flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <perk.icon className="w-3.5 h-3.5 text-primary" />
-                      </div>
+                      <perk.icon className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm md:text-base text-gray-600">{perk.text}</span>
                     </li>
                   ))}
