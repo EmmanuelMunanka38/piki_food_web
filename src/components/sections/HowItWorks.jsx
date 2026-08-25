@@ -65,9 +65,7 @@ export default function HowItWorks() {
               className="relative flex flex-col items-center text-center w-full max-w-xs"
             >
               <div className="relative mb-6">
-                <div className="w-20 h-20 rounded-full bg-primary-light flex items-center justify-center">
-                  <step.icon className="w-9 h-9 text-primary" />
-                </div>
+                <step.icon className="w-9 h-9 text-primary" />
                 <span className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center shadow-md">
                   {step.number}
                 </span>

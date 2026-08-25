@@ -6,7 +6,7 @@ export default function FoodImage({ src, alt, className = "" }) {
   if (!src || error) {
     return (
       <div
-        className={`flex items-center justify-center bg-primary-light ${className}`}
+        className={`flex items-center justify-center ${className}`}
         aria-label={alt}
       >
         <UtensilsCrossed className="w-1/4 h-1/4 text-primary/40" />

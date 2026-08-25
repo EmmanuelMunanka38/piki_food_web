@@ -328,9 +328,7 @@ export default function MsosiApiPage() {
                 transition={{ delay: i * 0.08 }}
                 className="p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="w-12 h-12 bg-primary flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-white" />
-                </div>
+                <feature.icon className="w-6 h-6 text-primary mb-4" />
                 <h3 className="text-lg font-bold text-dark mb-2 font-[family-name:var(--font-heading)]">
                   {feature.title}
                 </h3>
