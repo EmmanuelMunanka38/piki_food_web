@@ -3,9 +3,9 @@ import { MapPin, Store, Users, Timer, Leaf, ShieldCheck, Handshake } from "lucid
 import SectionTitle from "../ui/SectionTitle";
 
 const stats = [
-  { value: "8+", label: "Cities served", icon: MapPin },
-  { value: "200+", label: "Partner restaurants", icon: Store },
-  { value: "10K", label: "Active customers", icon: Users },
+  { value: "3", label: "Cities served", icon: MapPin },
+  { value: "38", label: "Partner restaurants", icon: Store },
+  { value: "300+", label: "Active customers", icon: Users },
   { value: "15min", label: "Avg. delivery time", icon: Timer },
 ];
 

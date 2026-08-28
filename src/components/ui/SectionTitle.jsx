@@ -10,7 +10,7 @@ export default function SectionTitle({ subtitle, title, description, center = tr
       className={`mb-12 md:mb-16 ${center ? "text-center" : ""}`}
     >
       {subtitle && (
-        <span className={`inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase ${dark ? "text-primary bg-primary/20" : "text-primary bg-primary-light rounded-full"}`}>
+        <span className={`inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase ${dark ? "text-primary bg-primary/20" : "text-primary bg-primary-light "}`}>
           {subtitle}
         </span>
       )}
