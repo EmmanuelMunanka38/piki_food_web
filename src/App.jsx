@@ -27,6 +27,7 @@ import OwnerDashboardPage from "./pages/restaurant/DashboardPage";
 import OwnerMenuPage from "./pages/restaurant/MenuPage";
 import OwnerOrdersPage from "./pages/restaurant/OrdersPage";
 import OwnerSetupPage from "./pages/restaurant/SetupPage";
+import OwnerBillingPage from "./pages/restaurant/BillingPage";
 
 function App() {
   const location = useLocation();
@@ -90,6 +91,16 @@ function App() {
               <RequireRestaurantAuth>
                 <RestaurantLayout>
                   <OwnerSetupPage />
+                </RestaurantLayout>
+              </RequireRestaurantAuth>
+            }
+          />
+          <Route
+            path="/restaurant/billing"
+            element={
+              <RequireRestaurantAuth>
+                <RestaurantLayout>
+                  <OwnerBillingPage />
                 </RestaurantLayout>
               </RequireRestaurantAuth>
             }

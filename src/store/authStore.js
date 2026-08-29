@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { authService } from "../services/auth";
+import { subscriptionsService } from "../services/subscriptions";
 import { clearTokens, getAccessToken, setTokens } from "../lib/tokens";
 
 export const useAuthStore = create(
   persist(
     (set, get) => ({
       user: null,
+      subscription: null,
       isLoading: false,
 
       isAuthenticated: () => Boolean(getAccessToken()),
@@ -52,15 +54,60 @@ export const useAuthStore = create(
         return user;
       },
 
+      async fetchSubscription() {
+        try {
+          const subscription = await subscriptionsService.getActive();
+          set({ subscription });
+          return subscription;
+        } catch (error) {
+          console.error('Failed to fetch subscription:', error);
+          return null;
+        }
+      },
+
+      hasFeature(featureName) {
+        const { subscription } = get();
+        if (!subscription || !subscription.plan) return false;
+        return subscription.plan[featureName] || false;
+      },
+
+      isTrialActive() {
+        const { subscription } = get();
+        if (!subscription || !subscription.isTrial) return false;
+        return new Date(subscription.trialEndsAt) > new Date();
+      },
+
+      isSubscriptionActive() {
+        const { subscription } = get();
+        if (!subscription) return false;
+        
+        if (subscription.isTrial) {
+          return get().isTrialActive();
+        }
+        
+        return subscription.status === 'PAID' && 
+               new Date(subscription.currentPeriodEnd) > new Date();
+      },
+
+      getTrialDaysLeft() {
+        const { subscription } = get();
+        if (!subscription || !subscription.isTrial) return 0;
+        
+        const now = new Date();
+        const endsAt = new Date(subscription.trialEndsAt);
+        const diff = endsAt - now;
+        return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+      },
+
       async logout() {
         await authService.logout();
         clearTokens();
-        set({ user: null });
+        set({ user: null, subscription: null });
       },
     }),
     {
       name: "pikifood-auth",
-      partialize: (s) => ({ user: s.user }),
+      partialize: (s) => ({ user: s.user, subscription: s.subscription }),
     }
   )
 );

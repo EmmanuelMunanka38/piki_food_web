@@ -9,11 +9,13 @@ import {
   ArrowRight,
   Loader2,
   Power,
+  CreditCard,
 } from "lucide-react";
 import { useMyRestaurant, useMyMenu, useMyOrders, useUpdateRestaurant } from "../../hooks/restaurantQueries";
 import { formatTZS } from "../../lib/format";
 import { statusMeta } from "../../lib/restaurantStatus";
 import FoodImage from "../../components/app/FoodImage";
+import { useAuthStore } from "../../store/authStore";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -21,7 +23,12 @@ export default function DashboardPage() {
   const { data: menu = [] } = useMyMenu(restaurant?.id);
   const { data: orders = [] } = useMyOrders();
   const updateRestaurant = useUpdateRestaurant();
+  const subscription = useAuthStore((s) => s.subscription);
   const [toggling, setToggling] = useState(false);
+
+  const planName = subscription?.plan?.name || "Free Trial";
+  const isTrial = subscription?.isTrial || false;
+  const trialDaysLeft = isTrial ? Math.max(0, Math.ceil((new Date(subscription.trialEndsAt) - new Date()) / (1000 * 60 * 60 * 24))) : 0;
 
   if (rLoading) {
     return (
@@ -105,6 +112,25 @@ export default function DashboardPage() {
               .filter(Boolean)
               .join(" · ")}
           </p>
+          <div className="flex items-center gap-2 mt-2">
+            <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold ${
+              isTrial ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"
+            }`}>
+              <CreditCard className="w-3 h-3" />
+              {planName}
+            </span>
+            {isTrial && trialDaysLeft > 0 && (
+              <span className="text-xs text-amber-600">
+                {trialDaysLeft} days left
+              </span>
+            )}
+            <Link
+              to="/restaurant/billing"
+              className="text-xs text-primary hover:text-primary-dark font-semibold"
+            >
+              Manage
+            </Link>
+          </div>
         </div>
         <button
           onClick={handleToggleOpen}
