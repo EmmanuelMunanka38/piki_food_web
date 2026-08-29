@@ -37,7 +37,7 @@ const plans = [
     features: [
       "Everything in Free tier",
       "Unlimited menu items",
-      "M-Pesa online payments (STK Push)",
+      "Online payments (STK Push)",
       "Priority search placement",
       "Featured in Popular Dishes",
       "Order analytics dashboard",
