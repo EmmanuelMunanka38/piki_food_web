@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Tags, Phone, Download, ArrowRight, Code2, ShoppingBag } from "lucide-react";
+import { Menu, X, Home, Tags, Phone, Download, ArrowRight, Code2, ShoppingBag, Store } from "lucide-react";
 import { getAccessToken } from "../../lib/tokens";
 
 const navLinks = [
@@ -25,6 +25,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const hasDarkHero = ["/", "/pricing", "/contact", "/download"].includes(
+    location.pathname
+  );
+  const solid = scrolled || !hasDarkHero;
+
+  useEffect(() => {
     if (sidebarOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -42,7 +51,7 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+          solid
             ? "bg-white/95 backdrop-blur-md shadow-sm"
             : "bg-white/0"
         }`}
@@ -53,16 +62,16 @@ export default function Navbar() {
               <button
                 onClick={() => setSidebarOpen(true)}
                 className={`flex items-center justify-center w-10 h-10 transition-colors duration-200 ${
-                  scrolled ? "hover:bg-black/5" : "hover:bg-white/10"
+                  solid ? "hover:bg-black/5" : "hover:bg-white/10"
                 }`}
                 aria-label="Open menu"
               >
-                <Menu className={`w-6 h-6 ${scrolled ? "text-dark" : "text-white"}`} />
+                <Menu className={`w-6 h-6 ${solid ? "text-dark" : "text-white"}`} />
               </button>
 
               <Link to="/" className="flex items-center group">
                 <span className={`text-[22px] font-extrabold tracking-tight font-[family-name:var(--font-heading)] ${
-                  scrolled ? "text-black-green" : "text-white"
+                  solid ? "text-black-green" : "text-white"
                 }`}>
                   Piki<span className="text-primary">Food</span>
                 </span>
@@ -77,7 +86,7 @@ export default function Navbar() {
                   className={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                     location.pathname === link.path
                       ? "text-primary font-semibold"
-                      : scrolled
+                      : solid
                         ? "text-dark/70 hover:text-dark"
                         : "text-white/80 hover:text-white"
                   }`}
@@ -208,6 +217,28 @@ export default function Navbar() {
                       <Code2 className="w-5 h-5" />
                       API
                       {location.pathname === "/api" && (
+                        <ArrowRight className="w-4 h-4 ml-auto text-primary" />
+                      )}
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (navLinks.length + 1) * 0.05 }}
+                  >
+                    <Link
+                      to="/restaurant-portal"
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors duration-200 ${
+                        location.pathname === "/restaurant-portal"
+                          ? "text-primary bg-primary-light"
+                          : "text-dark/70 hover:text-dark hover:bg-gray-50"
+                      }`}
+                    >
+                      <Store className="w-5 h-5" />
+                      Restaurant Portal
+                      {location.pathname === "/restaurant-portal" && (
                         <ArrowRight className="w-4 h-4 ml-auto text-primary" />
                       )}
                     </Link>
