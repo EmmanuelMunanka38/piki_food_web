@@ -121,12 +121,17 @@ export default function RestaurantAuthFlow() {
         OWNER_ROLE
       );
       
-      if (isSignup && planFromUrl) {
-        setStep(3);
-      } else {
-        await fetchSubscription();
-        navigate("/restaurant", { replace: true });
+      // For new signups, automatically start a free trial
+      if (isSignup) {
+        try {
+          await subscriptionsService.startTrial();
+        } catch (err) {
+          console.error('Failed to start trial:', err);
+        }
       }
+      
+      await fetchSubscription();
+      navigate("/restaurant", { replace: true });
     } catch (err) {
       setError(err?.message || "Invalid code. Please try again.");
     }

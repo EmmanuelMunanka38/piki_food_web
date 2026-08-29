@@ -10,7 +10,6 @@ export default function RequireRestaurantAuth({ children }) {
   const subscription = useAuthStore((s) => s.subscription);
   const fetchSubscription = useAuthStore((s) => s.fetchSubscription);
   const isTrialActive = useAuthStore((s) => s.isTrialActive);
-  const isSubscriptionActive = useAuthStore((s) => s.isSubscriptionActive);
   const hasToken = Boolean(getAccessToken());
   const isOwner = user ? user.role === "restaurant_owner" : true;
   const [ready, setReady] = useState(hasToken);
@@ -41,15 +40,15 @@ export default function RequireRestaurantAuth({ children }) {
   }, [hasToken, user, subscription, navigate, fetchSubscription]);
 
   useEffect(() => {
-    if (!ready || !subscription) return;
+    if (!ready) return;
 
     const isOnBillingPage = location.pathname === "/restaurant/billing";
-    const hasActiveSubscription = isTrialActive() || isSubscriptionActive();
-
-    if (!hasActiveSubscription && !isOnBillingPage) {
+    
+    // Only redirect if user has a trial that has expired
+    if (subscription?.isTrial && !isTrialActive() && !isOnBillingPage) {
       navigate("/restaurant/billing", { replace: true });
     }
-  }, [ready, subscription, location.pathname, isTrialActive, isSubscriptionActive, navigate]);
+  }, [ready, subscription, location.pathname, isTrialActive, navigate]);
 
   if (!ready || !isOwner || checkingSubscription) return null;
   return children;
