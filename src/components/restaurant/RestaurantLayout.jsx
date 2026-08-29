@@ -12,6 +12,7 @@ import {
   Settings,
 } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
+import TrialBanner from "./TrialBanner";
 
 const sideLinks = [
   { label: "Dashboard", path: "/restaurant", icon: LayoutDashboard },
@@ -85,6 +86,7 @@ export default function RestaurantLayout({ children }) {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
+        <TrialBanner />
         <header className="sticky top-0 z-40 bg-white border-b border-gray-100 lg:hidden">
           <div className="flex items-center justify-between h-16 px-4">
             <div className="flex items-center gap-2">

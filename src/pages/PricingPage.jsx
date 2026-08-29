@@ -12,11 +12,12 @@ import Button from "../components/ui/Button";
 
 const plans = [
   {
-    name: "Free tier",
+    id: "free-trial",
+    name: "Free Trial",
     price: 0,
     period: "14 days",
     tagline: "Try everything free for 14 days — no card required.",
-    cta: "Start free tier",
+    cta: "Start free trial",
     popular: false,
     features: [
       "Restaurant profile & menu listing",
@@ -28,6 +29,7 @@ const plans = [
     ],
   },
   {
+    id: "growth",
     name: "Growth",
     price: 50000,
     period: "month",
@@ -35,7 +37,7 @@ const plans = [
     cta: "Choose Growth",
     popular: true,
     features: [
-      "Everything in Free tier",
+      "Everything in Free Trial",
       "Unlimited menu items",
       "Online payments (STK Push)",
       "Priority search placement",
@@ -45,6 +47,7 @@ const plans = [
     ],
   },
   {
+    id: "pro",
     name: "Pro",
     price: 90000,
     period: "month",
@@ -228,7 +231,7 @@ export default function PricingPage() {
                   </ul>
 
                   <div className="mt-auto">
-                    <Link to="/signup" className="block">
+                    <Link to={`/restaurant-portal?plan=${plan.id}`} className="block">
                       <Button
                         variant={plan.popular ? "primary" : "secondary"}
                         className="w-full"

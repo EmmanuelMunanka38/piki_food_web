@@ -9,6 +9,7 @@ import {
   Upload,
   ToggleLeft,
   ToggleRight,
+  AlertCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -21,6 +22,7 @@ import {
 import { uploadService } from "../../services/upload";
 import { formatTZS } from "../../lib/format";
 import FoodImage from "../../components/app/FoodImage";
+import { useAuthStore } from "../../store/authStore";
 
 const emptyForm = {
   name: "",
@@ -38,12 +40,17 @@ export default function MenuPage() {
   const addMenuItem = useAddMenuItem();
   const updateMenuItem = useUpdateMenuItem();
   const deleteMenuItem = useDeleteMenuItem();
+  const subscription = useAuthStore((s) => s.subscription);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
+
+  const maxMenuItems = subscription?.plan?.maxMenuItems || 20;
+  const menuCount = menu.length;
+  const isAtLimit = menuCount >= maxMenuItems;
 
   const categoryOptions = useMemo(() => {
     const fromMenu = menu.map((m) => m.category).filter(Boolean);
@@ -178,15 +185,34 @@ export default function MenuPage() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark font-[family-name:var(--font-heading)]">Menu</h2>
-          <p className="text-sm text-gray-400">Add meals by category and manage availability.</p>
+          <p className="text-sm text-gray-400">
+            {menuCount} / {maxMenuItems === 999999 ? "Unlimited" : maxMenuItems} menu items
+          </p>
         </div>
         <button
           onClick={openAdd}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 cursor-pointer"
+          disabled={isAtLimit && !editing}
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Plus className="w-4 h-4" /> Add meal
         </button>
       </div>
+
+      {isAtLimit && (
+        <div className="bg-amber-50 border border-amber-200 p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-amber-900">Menu item limit reached</p>
+            <p className="text-sm text-amber-700 mt-1">
+              You've reached the maximum of {maxMenuItems} menu items for your plan.{" "}
+              <Link to="/restaurant/billing" className="font-semibold underline hover:text-amber-900">
+                Upgrade to Growth
+              </Link>{" "}
+              for unlimited items.
+            </p>
+          </div>
+        </div>
+      )}
 
       {error && (
         <p className="text-sm text-red-600 bg-red-50 border border-red-100 px-3 py-2">{error}</p>

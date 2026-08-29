@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import OtpInput from "./OtpInput";
 import { useAuthStore } from "../../store/authStore";
+import { subscriptionsService } from "../../services/subscriptions";
 
 const VALID_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_PHONE = /^[DR]?\+?\d{7,15}$/;
@@ -20,8 +22,12 @@ const OWNER_ROLE = "restaurant_owner";
 
 export default function RestaurantAuthFlow() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const planFromUrl = searchParams.get("plan");
+  
   const sendOtp = useAuthStore((s) => s.sendOtp);
   const verifyOTP = useAuthStore((s) => s.verifyOTP);
+  const fetchSubscription = useAuthStore((s) => s.fetchSubscription);
   const isLoading = useAuthStore((s) => s.isLoading);
 
   const [mode, setMode] = useState("login");
@@ -32,6 +38,22 @@ export default function RestaurantAuthFlow() {
   const [code, setCode] = useState("");
   const [resendIn, setResendIn] = useState(0);
   const resendTimer = useRef(null);
+  
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [paymentPhone, setPaymentPhone] = useState("");
+
+  const { data: plans = [], isLoading: loadingPlans } = useQuery({
+    queryKey: ["subscription-plans"],
+    queryFn: () => subscriptionsService.listPlans(),
+    enabled: isSignup && !!planFromUrl,
+  });
+
+  if (plans.length > 0 && !selectedPlan) {
+    const plan = plans.find(p => p.id === planFromUrl || p.ClickpesaPriceId === planFromUrl);
+    if (plan) {
+      setSelectedPlan(plan);
+    }
+  }
 
   const startResendTimer = () => {
     setResendIn(60);
@@ -98,9 +120,38 @@ export default function RestaurantAuthFlow() {
         isSignup ? formData.name.trim() : undefined,
         OWNER_ROLE
       );
-      navigate("/restaurant", { replace: true });
+      
+      if (isSignup && planFromUrl) {
+        setStep(3);
+      } else {
+        await fetchSubscription();
+        navigate("/restaurant", { replace: true });
+      }
     } catch (err) {
       setError(err?.message || "Invalid code. Please try again.");
+    }
+  };
+
+  const handlePaymentSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    
+    if (!VALID_PHONE.test(paymentPhone.replace(/\s/g, ""))) {
+      setError("Please enter a valid payment phone number.");
+      return;
+    }
+
+    try {
+      if (selectedPlan.isTrialPlan) {
+        await subscriptionsService.startTrial();
+      } else {
+        await subscriptionsService.subscribe(selectedPlan.id, paymentPhone.replace(/\s/g, ""));
+      }
+      
+      await fetchSubscription();
+      navigate("/restaurant", { replace: true });
+    } catch (err) {
+      setError(err?.message || "Failed to activate subscription. Please try again.");
     }
   };
 
@@ -281,7 +332,7 @@ export default function RestaurantAuthFlow() {
                 </>
               ) : (
                 <>
-                  Enter Dashboard <ArrowRight className="w-4 h-4" />
+                  {isSignup && planFromUrl ? "Continue to Plan Setup" : "Enter Dashboard"} <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
@@ -301,6 +352,104 @@ export default function RestaurantAuthFlow() {
               </button>
             )}
           </div>
+        </motion.div>
+      )}
+
+      {step === 3 && (
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <button
+            onClick={() => setStep(2)}
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-dark transition-colors mb-6 cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back
+          </button>
+
+          <h2 className="text-3xl font-bold text-dark mb-2 font-[family-name:var(--font-heading)]">
+            Activate Your Plan
+          </h2>
+          <p className="text-gray-500 mb-8">
+            {selectedPlan?.isTrialPlan 
+              ? "Start your 14-day free trial" 
+              : `Complete payment for ${selectedPlan?.name} plan`}
+          </p>
+
+          {loadingPlans ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : selectedPlan ? (
+            <div className="bg-gray-50 border border-gray-200 p-6 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-dark">{selectedPlan.name}</h3>
+                {selectedPlan.isTrialPlan ? (
+                  <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold">
+                    FREE TRIAL
+                  </span>
+                ) : (
+                  <span className="text-2xl font-bold text-primary">
+                    TSh {selectedPlan.priceCents / 100}/mo
+                  </span>
+                )}
+              </div>
+              
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>✓ {selectedPlan.maxMenuItems === 999999 ? "Unlimited" : selectedPlan.maxMenuItems} menu items</li>
+                {selectedPlan.hasAnalytics && <li>✓ Analytics dashboard</li>}
+                {selectedPlan.hasOnlinePayments && <li>✓ Online payments</li>}
+                {selectedPlan.priorityPlacement && <li>✓ Priority placement</li>}
+                {selectedPlan.isTrialPlan && <li>✓ 14 days free access</li>}
+              </ul>
+            </div>
+          ) : null}
+
+          <form onSubmit={handlePaymentSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-dark mb-1.5">
+                {selectedPlan?.isTrialPlan ? "Payment Phone (for future billing)" : "Payment Phone Number"}
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="tel"
+                  value={paymentPhone}
+                  onChange={(e) => setPaymentPhone(e.target.value)}
+                  placeholder="+255 712 345 678"
+                  className={inputClass}
+                />
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                {selectedPlan?.isTrialPlan 
+                  ? "We'll use this number when your trial ends and you upgrade to a paid plan."
+                  : "You'll receive an M-Pesa prompt to complete payment."}
+              </p>
+            </div>
+
+            {error && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-100 px-3 py-2">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading || !paymentPhone.trim()}
+              className="w-full py-3 bg-primary text-white font-semibold hover:bg-primary-dark transition-colors duration-200 cursor-pointer font-[family-name:var(--font-heading)] disabled:opacity-60 flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" /> Activating...
+                </>
+              ) : (
+                <>
+                  {selectedPlan?.isTrialPlan ? "Start Free Trial" : "Complete Payment"} <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
         </motion.div>
       )}
     </div>
