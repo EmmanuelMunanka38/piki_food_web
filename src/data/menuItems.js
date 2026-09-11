@@ -161,17 +161,24 @@ export const testimonials = [
 
 const LOGO_DEV_TOKEN = import.meta.env.VITE_LOGO_DEV_TOKEN;
 
+
 export const foodCompanies = [
   { id: 1, name: "KFC", domain: "kfc.com" },
-  { id: 2, name: "Jumia Food", domain: "jumia.com" },
-  { id: 3, name: "Bolt", domain: "bolt.eu" },
-  { id: 4, name: "Coca-Cola", domain: "coca-cola.com" },
-  { id: 5, name: "Pepsi", domain: "pepsi.com" },
-  { id: 6, name: "Starbucks", domain: "starbucks.com" },
-
+  { id: 2, name: "Pizza Hut", domain: "pizzahut.com" },
+  { id: 3, name: "Burger King", domain: "bk.com" },
+  { id: 4, name: "Subway", domain: "subway.com" },
+  { id: 5, name: "Domino's", domain: "dominos.com" },
+  { id: 6, name: "Glovo", domain: "glovoapp.com" },
+  { id: 7, name: "Jumia Food", domain: "jumia.com" },
+  { id: 8, name: "Bolt", domain: "bolt.eu" },
+  { id: 9, name: "Coca-Cola", domain: "coca-cola.com" },
+  { id: 10, name: "Pepsi", domain: "pepsi.com" },
+  { id: 11, name: "Uber Eats", domain: "ubereats.com" },
+  { id: 12, name: "McDonald's", domain: "mcdonalds.com" },
+  { id: 13, name: "Starbucks", domain: "starbucks.com" },
+  { id: 14, name: "Tusker", domain: "tuskerbeer.com" },
 ];
 
 export const getLogoUrl = (domain) =>
   `https://img.logo.dev/${domain}?token=${LOGO_DEV_TOKEN}&size=120&format=png&fallback=monogram`;
-
 
