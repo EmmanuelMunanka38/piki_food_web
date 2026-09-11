@@ -205,10 +205,10 @@ function RestaurantSetupForm({ restaurant }) {
             <label className={labelClass}>Delivery fee (TZS)</label>
             <input
               name="deliveryFee"
-              type="number"
-              min="0"
+              type="text"
               value={form.deliveryFee}
               onChange={handleChange}
+              placeholder="e.g. 2000"
               className={inputClass}
             />
           </div>

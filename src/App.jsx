@@ -1,33 +1,36 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import HomePage from "./pages/HomePage";
-import PricingPage from "./pages/PricingPage";
-import MenuPage from "./pages/MenuPage";
-import ContactPage from "./pages/ContactPage";
-import DownloadPage from "./pages/DownloadPage";
-import MsosiApiPage from "./pages/MsosiApiPage";
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import CookiePolicyPage from "./pages/CookiePolicyPage";
-import RestaurantPortalPage from "./pages/RestaurantPortalPage";
 import AppLayout from "./components/app/AppLayout";
 import RequireAuth from "./components/app/RequireAuth";
-import BrowsePage from "./pages/app/BrowsePage";
-import RestaurantPage from "./pages/app/RestaurantPage";
-import CartPage from "./pages/app/CartPage";
-import CheckoutPage from "./pages/app/CheckoutPage";
-import TrackPage from "./pages/app/TrackPage";
-import OrdersPage from "./pages/app/OrdersPage";
-import ProfilePage from "./pages/app/ProfilePage";
 import RequireRestaurantAuth from "./components/restaurant/RequireRestaurantAuth";
 import RestaurantLayout from "./components/restaurant/RestaurantLayout";
-import OwnerDashboardPage from "./pages/restaurant/DashboardPage";
-import OwnerMenuPage from "./pages/restaurant/MenuPage";
-import OwnerOrdersPage from "./pages/restaurant/OrdersPage";
-import OwnerSetupPage from "./pages/restaurant/SetupPage";
-import OwnerBillingPage from "./pages/restaurant/BillingPage";
+import PortalSkeleton from "./components/restaurant/PortalSkeleton";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const PricingPage = lazy(() => import("./pages/PricingPage"));
+const MenuPage = lazy(() => import("./pages/MenuPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const DownloadPage = lazy(() => import("./pages/DownloadPage"));
+const MsosiApiPage = lazy(() => import("./pages/MsosiApiPage"));
+const SignUpPage = lazy(() => import("./pages/SignUpPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const CookiePolicyPage = lazy(() => import("./pages/CookiePolicyPage"));
+const RestaurantPortalPage = lazy(() => import("./pages/RestaurantPortalPage"));
+const BrowsePage = lazy(() => import("./pages/app/BrowsePage"));
+const RestaurantPage = lazy(() => import("./pages/app/RestaurantPage"));
+const CartPage = lazy(() => import("./pages/app/CartPage"));
+const CheckoutPage = lazy(() => import("./pages/app/CheckoutPage"));
+const TrackPage = lazy(() => import("./pages/app/TrackPage"));
+const OrdersPage = lazy(() => import("./pages/app/OrdersPage"));
+const ProfilePage = lazy(() => import("./pages/app/ProfilePage"));
+const OwnerDashboardPage = lazy(() => import("./pages/restaurant/DashboardPage"));
+const OwnerMenuPage = lazy(() => import("./pages/restaurant/MenuPage"));
+const OwnerOrdersPage = lazy(() => import("./pages/restaurant/OrdersPage"));
+const OwnerSetupPage = lazy(() => import("./pages/restaurant/SetupPage"));
+const OwnerBillingPage = lazy(() => import("./pages/restaurant/BillingPage"));
 
 function App() {
   const location = useLocation();
@@ -42,6 +45,7 @@ function App() {
     <div className="min-h-screen overflow-x-hidden">
       {!isAuthPage && !isAppPage && !isRestaurantPage && <Navbar />}
       <main>
+        <Suspense fallback={isRestaurantPage ? <PortalSkeleton /> : <div className="min-h-[60vh]" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -177,6 +181,7 @@ function App() {
             }
           />
         </Routes>
+        </Suspense>
       </main>
       {!isAppPage && !isRestaurantPage && <Footer />}
     </div>

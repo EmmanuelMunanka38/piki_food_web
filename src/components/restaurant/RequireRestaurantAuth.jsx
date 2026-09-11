@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAccessToken } from "../../lib/tokens";
 import { useAuthStore } from "../../store/authStore";
+import PortalSkeleton from "./PortalSkeleton";
 
 export default function RequireRestaurantAuth({ children }) {
   const navigate = useNavigate();
@@ -12,8 +13,10 @@ export default function RequireRestaurantAuth({ children }) {
   const isTrialActive = useAuthStore((s) => s.isTrialActive);
   const hasToken = Boolean(getAccessToken());
   const isOwner = user ? user.role === "restaurant_owner" : true;
-  const [ready, setReady] = useState(hasToken);
+  const hasCachedData = hasToken && user && subscription;
+  const [ready, setReady] = useState(hasCachedData);
   const [checkingSubscription, setCheckingSubscription] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(!hasCachedData);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -34,6 +37,7 @@ export default function RequireRestaurantAuth({ children }) {
       }
 
       setReady(true);
+      setShowSkeleton(false);
     };
 
     checkAuth();
@@ -43,13 +47,13 @@ export default function RequireRestaurantAuth({ children }) {
     if (!ready) return;
 
     const isOnBillingPage = location.pathname === "/restaurant/billing";
-    
-    // Only redirect if user has a trial that has expired
+
     if (subscription?.isTrial && !isTrialActive() && !isOnBillingPage) {
       navigate("/restaurant/billing", { replace: true });
     }
   }, [ready, subscription, location.pathname, isTrialActive, navigate]);
 
-  if (!ready || !isOwner || checkingSubscription) return null;
+  if (showSkeleton && (!ready || !isOwner || checkingSubscription)) return <PortalSkeleton />;
+  if (!ready || !isOwner) return null;
   return children;
 }
