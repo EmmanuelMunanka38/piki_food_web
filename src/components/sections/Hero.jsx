@@ -204,7 +204,7 @@ export default function Hero() {
                 ) : (
                   <Search className="w-4 h-4" />
                 )}
-                Search here
+                Oder Now
               </motion.button>
             </motion.div>
 
