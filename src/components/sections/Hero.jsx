@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, ChevronDown, Search, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { MapPin, Clock, ChevronDown, CheckCircle2, XCircle } from "lucide-react";
 import { MAPBOX_TOKEN, SERVICE_CITIES, isCitySupported } from "../../data/mapConfig";
 import { Link } from "react-router-dom";
 
@@ -23,6 +23,7 @@ const itemVariants = {
 };
 
 export default function Hero() {
+  const MotionLink = motion(Link);
   const [address, setAddress] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("Deliver now");
   const [suggestions, setSuggestions] = useState([]);
@@ -192,20 +193,14 @@ export default function Hero() {
                 <ChevronDown className="w-4 h-4 text-dark/50 shrink-0" />
               </div>
 
-              <motion.button
+              <MotionLink
+                to="/signup"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={handleSearch}
-                disabled={searching}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-dark text-white text-sm font-semibold hover:bg-dark/90 transition-colors duration-200 cursor-pointer disabled:opacity-60"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-dark text-white text-sm font-semibold hover:bg-dark/90 transition-colors duration-200 cursor-pointer"
               >
-                {searching ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Search className="w-4 h-4" />
-                )}
-                Oder Now
-              </motion.button>
+                Order Now
+              </MotionLink>
             </motion.div>
 
             <AnimatePresence mode="wait">
