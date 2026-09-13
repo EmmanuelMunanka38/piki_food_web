@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Store, Users, Timer, Leaf, ShieldCheck, Handshake } from "lucide-react";
+import { MapPin, Store, Users, Timer, Utensils, ShieldCheck } from "lucide-react";
 import SectionTitle from "../ui/SectionTitle";
 
 const stats = [
@@ -9,24 +9,24 @@ const stats = [
   { value: "15min", label: "Avg. delivery time", icon: Timer },
 ];
 
-const values = [
+const cards = [
   {
-    icon: Leaf,
-    title: "Built for local tastes",
-    description:
-      "From ugali to biryani, we celebrate the food East Africans actually love — sourced from the kitchens around you.",
+    icon: Utensils,
+    title: "Best Restaurants",
+    description: "Order from top-rated restaurants near you. Fresh meals, real flavours, made just for you.",
+    image: "/restu.png",
+  },
+  {
+    icon: Users,
+    title: "Order for Anyone",
+    description: "Send food to friends, coworkers or family. Just enter their address and we handle the rest.",
+    image: "https://i.pinimg.com/736x/01/a8/b2/01a8b20022d3ac8d1c0ad960e7b67466.jpg",
   },
   {
     icon: ShieldCheck,
-    title: "Secured payments",
-    description:
-      "Pay the way you already do. Transparent pricing, no hidden fees, and settlements you can trust.",
-  },
-  {
-    icon: Handshake,
-    title: "Partners first",
-    description:
-      "We grow with restaurants and riders, giving them the tools and fair economics to thrive.",
+    title: "Fast & Secure",
+    description: "Lightning-fast delivery with secure mobile payments. Your food arrives hot, your money stays safe.",
+    image: "/fastsecure.png",
   },
 ];
 
@@ -39,6 +39,15 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
@@ -63,7 +72,10 @@ export default function About() {
           className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16"
         >
           <motion.div variants={itemVariants} className="flex-1 w-full">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-dark leading-tight font-[family-name:var(--font-heading)] mb-4">
+            <h3
+              className="text-2xl md:text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Food that feels like home, delivered with care
             </h3>
             <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8">
@@ -105,20 +117,40 @@ export default function About() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-20"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-16 md:mt-20"
         >
-          {values.map((value) => (
+          {cards.map((card) => (
             <motion.div
-              key={value.title}
-              variants={itemVariants}
-              className="bg-white border border-gray-100 shadow-sm p-6 md:p-8"
+              key={card.title}
+              variants={cardVariants}
+              className="group overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-shadow duration-300"
             >
-              <value.icon className="w-5 h-5 text-primary mb-5" />
-              <h4 className="text-lg font-bold text-dark mb-2">{value.title}</h4>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                {value.description}
-              </p>
+              <div className="relative h-56 md:h-64 overflow-hidden bg-gray-100">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="p-6 md:p-7">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 flex items-center justify-center bg-primary-light">
+                    <card.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3
+                    className="text-lg font-bold text-dark"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {card.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {card.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

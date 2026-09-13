@@ -9,8 +9,9 @@
   --color-dark: #0F172A;
   --color-dark-lighter: #1E293B;
   --color-off-white: #F8FAFC;
-  --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
 }
 
 @layer base {

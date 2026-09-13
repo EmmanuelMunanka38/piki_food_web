@@ -14,7 +14,10 @@ export default function SectionTitle({ subtitle, title, description, center = tr
           {subtitle}
         </span>
       )}
-      <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${dark ? "text-white" : "text-dark"}`}>
+      <h2
+        className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${dark ? "text-white" : "text-dark"}`}
+        style={{ fontFamily: "var(--font-display)" }}
+      >
         {title}
       </h2>
       {description && (

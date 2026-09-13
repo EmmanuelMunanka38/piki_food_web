@@ -61,7 +61,10 @@ export default function MapSection() {
     <section className="py-16 md:py-24 bg-white border-t border-gray-100">
       <div className="mx-auto max-w-[1440px] px-5 md:px-8 lg:px-12">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-dark font-[family-name:var(--font-heading)] tracking-tight">
+          <h2
+            className="text-3xl md:text-4xl font-bold text-dark tracking-tight"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             Where We Are Found
           </h2>
           <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl mx-auto">
@@ -200,7 +203,10 @@ export default function MapSection() {
             <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wide uppercase text-primary">
               Our Target
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-dark leading-tight font-[family-name:var(--font-heading)] mb-4">
+            <h3
+              className="text-2xl md:text-3xl font-bold text-dark leading-tight mb-4"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Every region of Tanzania, within reach
             </h3>
             <p className="text-gray-500 text-sm md:text-base leading-relaxed">
