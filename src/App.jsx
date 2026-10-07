@@ -31,6 +31,7 @@ const OwnerMenuPage = lazy(() => import("./pages/restaurant/MenuPage"));
 const OwnerOrdersPage = lazy(() => import("./pages/restaurant/OrdersPage"));
 const OwnerSetupPage = lazy(() => import("./pages/restaurant/SetupPage"));
 const OwnerBillingPage = lazy(() => import("./pages/restaurant/BillingPage"));
+const OwnerWalletPage = lazy(() => import("./pages/restaurant/WalletPage"));
 
 function App() {
   const location = useLocation();
@@ -105,6 +106,16 @@ function App() {
               <RequireRestaurantAuth>
                 <RestaurantLayout>
                   <OwnerBillingPage />
+                </RestaurantLayout>
+              </RequireRestaurantAuth>
+            }
+          />
+          <Route
+            path="/restaurant/wallet"
+            element={
+              <RequireRestaurantAuth>
+                <RestaurantLayout>
+                  <OwnerWalletPage />
                 </RestaurantLayout>
               </RequireRestaurantAuth>
             }

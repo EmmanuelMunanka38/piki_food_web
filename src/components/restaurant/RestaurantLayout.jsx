@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   UtensilsCrossed,
   Receipt,
+  Wallet,
   LogOut,
   Menu as MenuIcon,
   X,
@@ -18,6 +19,7 @@ const sideLinks = [
   { label: "Dashboard", path: "/restaurant", icon: LayoutDashboard },
   { label: "Menu", path: "/restaurant/menu", icon: UtensilsCrossed },
   { label: "Orders", path: "/restaurant/orders", icon: Receipt },
+  { label: "Wallet", path: "/restaurant/wallet", icon: Wallet },
   { label: "Settings", path: "/restaurant/setup", icon: Settings },
 ];
 
