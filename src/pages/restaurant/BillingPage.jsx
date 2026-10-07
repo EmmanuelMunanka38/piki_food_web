@@ -23,35 +23,6 @@ import { PAYMENT_METHODS, normalizePhone } from "../../lib/payments";
 
 const SUBSCRIPTION_METHODS = ["airtel_money", "mixx_by_yas", "halopesa", "mpesa", "card"];
 
-const FALLBACK_PLANS = [
-  {
-    id: "growth",
-    name: "Growth",
-    priceCents: 5000000,
-    maxMenuItems: 999999,
-    hasAnalytics: true,
-    hasOnlinePayments: true,
-    priorityPlacement: true,
-    featuredInPopular: true,
-    customDesign: false,
-    multiBranch: false,
-    dedicatedManager: false,
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    priceCents: 9000000,
-    maxMenuItems: 999999,
-    hasAnalytics: true,
-    hasOnlinePayments: true,
-    priorityPlacement: true,
-    featuredInPopular: true,
-    customDesign: true,
-    multiBranch: true,
-    dedicatedManager: true,
-  },
-];
-
 function getPlanFeatures(plan) {
   const features = [];
   features.push(
@@ -89,10 +60,8 @@ export default function BillingPage() {
     queryKey: ["subscription-plans"],
     queryFn: async () => {
       const data = await subscriptionsService.listPlans();
-      const paid = data.filter((p) => !p.isTrialPlan);
-      return paid.length > 0 ? paid : FALLBACK_PLANS;
+      return data.filter((p) => !p.isTrialPlan);
     },
-    placeholderData: FALLBACK_PLANS,
   });
 
   const openPaymentModal = (plan) => {
@@ -198,6 +167,11 @@ export default function BillingPage() {
       )}
 
       <div className="grid gap-6 md:grid-cols-2">
+        {!loading && plans.length === 0 && (
+          <div className="col-span-2 p-10 text-center border border-gray-100 bg-white">
+            <p className="text-gray-500">No paid plans are currently available. Please contact support.</p>
+          </div>
+        )}
         {plans.map((plan) => {
           const current = subscription?.planId === plan.id;
           const features = getPlanFeatures(plan);
